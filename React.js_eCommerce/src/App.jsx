@@ -9,6 +9,9 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/cart" element={<p>This is cart page</p>} />
+          <Route path="/order" element={<p>This is order page</p>} />
+          <Route path="/profile" element={<p>This is profile page</p>} />
         </Routes>
       </BrowserRouter>
     </div>
