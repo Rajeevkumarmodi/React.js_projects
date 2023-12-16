@@ -11,82 +11,14 @@ import { IoCloseSharp } from "react-icons/io5";
 import { VscThreeBars } from "react-icons/vsc";
 import { FaSearch } from "react-icons/fa";
 import { HiOutlineBars4 } from "react-icons/hi2";
+import AllCategories from "../allCategories/AllCategories";
 
 import "./header.css";
 
 function Header() {
   const [isOpenManu, setIsOpenManu] = useState(false);
-
-  // return (
-  //   <div className="w-full">
-  //     <div className="sticky flex items-center justify-between md:px-[80px] px-[30px] h-[50px] border-b-2 border-gray-400">
-  //       <Link
-  //         to="/"
-  //         className="flex items-center gap-2 font-bodyFont text-xl  font-bold"
-  //       >
-  //         <img className="w-[40px]" src={pngLogo} alt="" />
-  //         <div className="flex gap-1">
-  //           <p className="text-red-700">Shoping</p>
-  //           <p className="text-blue-600">Karo</p>
-  //         </div>
-  //       </Link>
-  //       <div className="flex gap-8 relative items-center">
-  //         <div>
-  //           <button className="border-2 border-gray-500 text-red-500 px-4 font-bold rounded-lg hover:bg-blue-700 hover:text-white">
-  //             Home
-  //           </button>
-  //         </div>
-
-  //         <VscThreeBars />
-  //         <Link to="/cart">
-  //           <HiOutlineShoppingBag className="text-3xl" />
-  //           <p className="absolute text-orange-500 top-[-13px] left-[130px] font-bold">
-  //             13
-  //           </p>
-  //         </Link>
-  //         {/* <div>
-  //           <RxAvatar
-  //             onClick={handelMyManu}
-  //             className="text-3xl cursor-pointer"
-  //           />
-  //         </div> */}
-  //         <div>
-  //           <button className="bg-blue-600 py-1 px-4 text-white font-bold rounded-lg">
-  //             Login
-  //           </button>
-  //         </div>
-  //       </div>
-  //     </div>
-  //     {isOpenMyMamu && (
-  //       <div className=" absolute right-0 top-10 w-[150px] rounded-lg  p-3 shadow-lg shadow-gray-400">
-  //         <Link
-  //           to="/order"
-  //           onClick={handelMyManu}
-  //           className="flex items-center gap-2 font-bodyFont pt-2"
-  //         >
-  //           <LiaAmbulanceSolid className="text-2xl" />
-  //           <p>My Order</p>
-  //         </Link>
-  //         <Link
-  //           to="/cart"
-  //           onClick={handelMyManu}
-  //           className="flex items-center gap-2 font-bodyFont py-3"
-  //         >
-  //           <FaCartArrowDown className="text-2xl" />
-  //           <p>My Cart</p>
-  //         </Link>
-  //         <Link
-  //           to="/profile"
-  //           onClick={handelMyManu}
-  //           className="flex items-center gap-2 font-bodyFont "
-  //         >
-  //           <RxAvatar className="text-2xl" />
-  //           <p>My Profile</p>
-  //         </Link>
-  //       </div>
-  //     )}
-  //   </div>
-  // );
+  const [isCategoryManuOpen, setIsCategoryManuOpen] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState("All");
 
   return (
     <div className="w-full">
@@ -124,7 +56,7 @@ function Header() {
               About
             </NavLink>
           </div>
-          <div className="flex items-center gap-4 md:gap-6">
+          <div className=" flex items-center gap-4 md:gap-6">
             <Link to="/cart" className="flex gap-3 items-center relative">
               <HiOutlineShoppingBag className="text-3xl" />
               <p className="font-bold hidden md:block">Cart</p>
@@ -150,6 +82,42 @@ function Header() {
                 className="md:hidden  text-3xl cursor-pointer"
               />
             )}
+          </div>
+        </div>
+
+        {/* filter and search */}
+
+        <div className=" bg-gray-100 flex md:flex-row flex-col items-center justify-center md:gap-10 gap-3 py-4">
+          <div className="relative flex items-center gap-2 cursor-pointer">
+            <HiOutlineBars4
+              onClick={() => setIsCategoryManuOpen(!isCategoryManuOpen)}
+              className="text-2xl"
+            />
+            <p
+              onClick={() => setIsCategoryManuOpen(!isCategoryManuOpen)}
+              className=" font-bold"
+            >
+              Filter by Category
+            </p>
+            {isCategoryManuOpen && (
+              <div className="absolute md:top-[30px] top-[20px] md:left-[-80px] left-[-50px]  z-10">
+                <AllCategories
+                  setIsCategoryManuOpen={setIsCategoryManuOpen}
+                  isCategoryManuOpen={isCategoryManuOpen}
+                  selectedCategories={selectedCategories}
+                  setSelectedCategories={setSelectedCategories}
+                />
+              </div>
+            )}
+          </div>
+          <div className=" flex items-center relative">
+            <input
+              className="border-2 border-gray-400 border-r-0 rounded-l-lg outline-none px-2  "
+              type="text"
+            />
+            <div className=" bg-blue-600 p-[6px] rounded-r-lg ">
+              <FaSearch className="text-white cursor-pointer" />
+            </div>
           </div>
         </div>
       </div>
