@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import HomePage from "./pages/homePage/HomePage";
+import Footer from "./components/footer/Footer";
 function App() {
   return (
     <div>
@@ -13,6 +14,7 @@ function App() {
           <Route path="/order" element={<p>This is order page</p>} />
           <Route path="/profile" element={<p>This is profile page</p>} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );
