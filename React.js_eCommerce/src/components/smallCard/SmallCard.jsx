@@ -34,8 +34,8 @@ function SmallCard({ data }) {
                 </p>
               </div>
               <p className="font-bold py-2">
-                {product.title.length > 20
-                  ? product.title.slice(0, 20) + ".."
+                {product.title.length > 15
+                  ? product.title.slice(0, 15) + ".."
                   : product.title}
               </p>
 

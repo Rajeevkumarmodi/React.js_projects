@@ -23,4 +23,12 @@ async function topDiscountProducts() {
   return filterData.slice(0, 5);
 }
 
-export { fetchCategories, topRatedProducts, topDiscountProducts };
+// laptop
+
+async function topLaptops() {
+  const res = await fetch("https://dummyjson.com/products/category/laptops");
+  const jsonData = await res.json();
+  return jsonData.products;
+}
+
+export { fetchCategories, topRatedProducts, topDiscountProducts, topLaptops };
