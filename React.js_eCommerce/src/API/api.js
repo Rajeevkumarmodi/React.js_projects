@@ -31,4 +31,17 @@ async function topLaptops() {
   return jsonData.products;
 }
 
-export { fetchCategories, topRatedProducts, topDiscountProducts, topLaptops };
+// single product
+
+async function singleProduct(id) {
+  const res = await fetch(`https://dummyjson.com/products/${id}`);
+  return await res.json();
+}
+
+export {
+  fetchCategories,
+  topRatedProducts,
+  topDiscountProducts,
+  topLaptops,
+  singleProduct,
+};
