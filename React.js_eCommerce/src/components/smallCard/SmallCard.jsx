@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function SmallCard({ topRatedProductsData }) {
+function SmallCard({ data }) {
   return (
     <>
-      {topRatedProductsData &&
-        topRatedProductsData.map((product) => {
+      {data &&
+        data.map((product) => {
           return (
             <div
               key={product.id}
-              className="w-[200px] bg-gray-200 p-3 rounded-lg hover:shadow-lg duration-300 cursor-pointer shadow-gray-500"
+              className="md:w-[200px] w-[280px] bg-gray-200 p-3 rounded-lg hover:shadow-lg duration-300 cursor-pointer shadow-gray-500"
             >
               <Link to={`/product/${product.id}`}>
                 <img
