@@ -22,7 +22,7 @@ function Header() {
 
   return (
     <div className="w-full">
-      <div className="sticky top-0 ">
+      <div className="z-50 fixed w-full top-0 ">
         <div className="flex items-center justify-between md:px-[80px] px-[10px] h-[50px] bg-white border-b-2 border-gray-400">
           <div>
             <Link
@@ -149,7 +149,6 @@ function Header() {
           </NavLink>
         </div>
       )}
-      <div className="h-[1000px]"></div>
     </div>
   );
 }
