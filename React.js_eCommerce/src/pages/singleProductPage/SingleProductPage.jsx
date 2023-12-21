@@ -4,11 +4,17 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { singleProduct } from "../../API/api";
 import "../../../src/index.css";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/addToCartSlice";
+import toast, { Toaster } from "react-hot-toast";
+
 function SingleProductPage() {
+  const dispatch = useDispatch();
   const id = useParams().id;
   const [singleProductData, setSingleProductData] = useState({});
   const [images, setImages] = useState([]);
   const [singleImage, setSingleImage] = useState("");
+  const [initialQuentity, setInitialQuentity] = useState(1);
 
   useEffect(() => {
     fetchSingleProductData();
@@ -18,6 +24,38 @@ function SingleProductPage() {
     const data = await singleProduct(id);
     setSingleProductData(data);
     setImages(data.images);
+  }
+
+  // add to cart handel function
+
+  function handelAddToCart() {
+    dispatch(
+      addToCart({
+        id: singleProductData.id,
+        title: singleProductData.title,
+        price: singleProductData.price,
+        discountPercentage: singleProductData.discountPercentage,
+        rating: singleProductData.rating,
+        category: singleProductData.category,
+        thumbnail: singleProductData.thumbnail,
+        quentity: initialQuentity,
+      })
+    );
+    toast.success(singleProductData.title + " is added");
+  }
+
+  // handelquentity function
+
+  function handelQuentity(val) {
+    if (val === 1) {
+      setInitialQuentity(initialQuentity + 1);
+    } else {
+      if (initialQuentity === 1) {
+        setInitialQuentity(1);
+      } else {
+        setInitialQuentity(initialQuentity - 1);
+      }
+    }
   }
 
   return (
@@ -106,22 +144,32 @@ function SingleProductPage() {
             </p>
           </div>
           <div className="flex items-center gap-2 mt-3">
-            <p className="border-2 border-gray-400 rounded-md px-2 py-1 cursor-pointer hover:bg-gray-100">
+            <p
+              onClick={() => handelQuentity(-1)}
+              className="border-2 border-gray-400 rounded-md px-2 py-1 cursor-pointer hover:bg-gray-100"
+            >
               <FaMinus />
             </p>
 
             <p className="border-2 border-gray-400 rounded-md px-2 py-0 cursor-pointer hover:bg-gray-100">
-              1
+              {initialQuentity}
             </p>
-            <p className="border-2 border-gray-400 rounded-md px-2 py-1 cursor-pointer hover:bg-gray-100">
+            <p
+              onClick={() => handelQuentity(1)}
+              className="border-2 border-gray-400 rounded-md px-2 py-1 cursor-pointer hover:bg-gray-100"
+            >
               <FaPlus />
             </p>
-            <button className="bg-green-600 hover:bg-green-700 px-4 rounded-lg py-1 text-white ml-5 hover:shadow-lg shadow-gray-400">
+            <button
+              onClick={handelAddToCart}
+              className="bg-green-600 hover:bg-green-700 px-4 rounded-lg py-1 text-white ml-5 hover:shadow-lg shadow-gray-400"
+            >
               Add To Cart
             </button>
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }

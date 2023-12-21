@@ -12,6 +12,7 @@ import { VscThreeBars } from "react-icons/vsc";
 import { FaSearch } from "react-icons/fa";
 import { HiOutlineBars4 } from "react-icons/hi2";
 import AllCategories from "../allCategories/AllCategories";
+import { useSelector } from "react-redux";
 
 import "./header.css";
 
@@ -20,6 +21,7 @@ function Header() {
   const [isCategoryManuOpen, setIsCategoryManuOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState("All");
 
+  const cartData = useSelector((state) => state.allCartData.cart);
   return (
     <div className="w-full">
       <div className="z-50 fixed w-full top-0 ">
@@ -61,7 +63,7 @@ function Header() {
               <HiOutlineShoppingBag className="text-3xl" />
               <p className="font-bold hidden md:block">Cart</p>
               <p className="absolute font-bold text-orange-500 top-[-10px] left-[25px]">
-                0
+                {cartData.length}
               </p>
             </Link>
             <Link

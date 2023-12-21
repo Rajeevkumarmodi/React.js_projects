@@ -1,7 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/addToCartSlice";
+import toast, { Toaster } from "react-hot-toast";
 
 function SmallCard({ data }) {
+  const dispatch = useDispatch();
+
+  function handelAddToCart(
+    id,
+    title,
+    price,
+    rating,
+    discountPercentage,
+    thumbnail,
+    category
+  ) {
+    dispatch(
+      addToCart({
+        id,
+        title,
+        price,
+        discountPercentage,
+        rating,
+        category,
+        thumbnail,
+        quentity: 1,
+      })
+    );
+    toast.success(title + " is added");
+  }
+
   return (
     <>
       {data &&
@@ -40,13 +69,27 @@ function SmallCard({ data }) {
               </p>
 
               <div className="text-center pt-2">
-                <button className="bg-blue-700 px-4 py-1 rounded-lg text-white font-bold hover:shadow-lg">
+                <button
+                  onClick={() =>
+                    handelAddToCart(
+                      product.id,
+                      product.title,
+                      product.price,
+                      product.rating,
+                      product.discountPercentage,
+                      product.thumbnail,
+                      product.category
+                    )
+                  }
+                  className="bg-blue-700 px-4 py-1 rounded-lg text-white font-bold hover:shadow-lg"
+                >
                   Add To Cart
                 </button>
               </div>
             </div>
           );
         })}
+      <Toaster />
     </>
   );
 }
