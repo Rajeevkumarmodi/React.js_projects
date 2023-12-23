@@ -1,12 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
-import { FaPlus, FaMinus } from "react-icons/fa6";
+import { FaPlus, FaMinus, FaArrowLeftLong } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import { increaseQuantity, decreaseQuantity } from "../../redux/addToCartSlice";
+import { useDispatch } from "react-redux";
 function Cart() {
+  const dispatch = useDispatch();
   const data = useSelector((state) => state.allCartData.cart);
   const [cartData, setCartData] = useState(data);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  console.log(data);
+  useEffect(() => {
+    setCartData(data);
+
+    if (data.length > 0) {
+      setTotalQuantity(data.reduce((obj, obj1) => obj + obj1.quentity, 0));
+      setTotalPrice(
+        data.reduce((obj, obj1) => obj + obj1.quentity * obj1.price, 0)
+      );
+    }
+  }, [data]);
+
+  if (cartData.length === 0) {
+    return (
+      <div className="flex flex-col justify-center h-[100vh] text-center">
+        <p className="font-bold text-3xl">Your card is empty 😒</p>
+        <Link
+          to="/"
+          className="flex items-center gap-1 justify-center mt-3 text-xl text-blue-700 font-bold"
+        >
+          <FaArrowLeftLong /> Shop Now
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-[150px] md:mx-[80px] mx-[10px] ">
       <div className="flex  md:flex-row flex-col justify-between ">
@@ -16,39 +46,50 @@ function Cart() {
             <p className="font-bold text-3xl">Your Cart</p>
             <p className="font-bold">{cartData && cartData.length} items</p>
           </div>
-          {cartData.map((product) => {
-            return (
-              <div
-                key={product.id}
-                className="w-[90vw] md:w-[60vw] flex-col my-3 py-2 md:px-[20px] bg-gray-50 rounded-lg"
-              >
-                <div className="flex gap-2 py-5 border-b-2 relative">
-                  <img
-                    className="md:w-[100px] w-[80px]  rounded-md "
-                    src={product.thumbnail}
-                    alt={product.title}
-                  />
-                  <div className="flex flex-col gap-2 ">
-                    <p className="font-bold">{product.title}</p>
-                    <AiOutlineDelete className="  absolute right-[0px] text-2xl cursor-pointer hover:scale-110 duration-300" />
-                    <div className="md:w-[35vw] w-[50vw] gap-2 flex justify-between">
-                      <p className="font-bold">${product.price}</p>
-                      <div className="flex gap-2 items-center cursor-pointer">
-                        <FaMinus className="cursor-pointer" />
-                        <p className="border px-2 rounded-md">
-                          {product.quentity}
+          {cartData &&
+            cartData.map((product) => {
+              return (
+                <div
+                  key={product.id}
+                  className="w-[90vw] md:w-[60vw] flex-col my-3 py-2 md:px-[20px] bg-gray-50 rounded-lg"
+                >
+                  <div className="flex gap-2 py-5 border-b-2 relative">
+                    <img
+                      className="md:w-[100px] w-[80px]  rounded-md "
+                      src={product.thumbnail}
+                      alt={product.title}
+                    />
+                    <div className="flex flex-col gap-2 ">
+                      <p className="font-bold">{product.title}</p>
+                      <AiOutlineDelete className="  absolute right-[0px] text-2xl cursor-pointer hover:scale-110 duration-300" />
+                      <div className="md:w-[35vw] w-[50vw] gap-2 flex justify-between">
+                        <p className="font-bold">${product.price}</p>
+                        <div className="flex gap-2 items-center cursor-pointer">
+                          <FaMinus
+                            onClick={() =>
+                              dispatch(decreaseQuantity(product.id))
+                            }
+                            className="cursor-pointer"
+                          />
+                          <p className="border px-2 rounded-md">
+                            {product.quentity}
+                          </p>
+                          <FaPlus
+                            onClick={() =>
+                              dispatch(increaseQuantity(product.id))
+                            }
+                            className="cursor-pointer"
+                          />
+                        </div>
+                        <p className="font-bold">
+                          ${product.price * product.quentity}
                         </p>
-                        <FaPlus className="cursor-pointer" />
                       </div>
-                      <p className="font-bold">
-                        ${product.price * product.quentity}
-                      </p>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
         {/* right side  */}
 
@@ -58,7 +99,7 @@ function Cart() {
           </h1>
           <div className="flex justify-between mt-2 mb-2">
             <span className="font-semibold text-base ">Total Item</span>
-            <span className="font-bold text-sm ">3</span>
+            <span className="font-bold text-sm ">{totalQuantity}</span>
           </div>
           <div className="flex justify-between font-semibold">
             <p>Shipping charges</p>
@@ -68,7 +109,7 @@ function Cart() {
           <div className="border-t mt-4 ">
             <div className="flex font-bold justify-between py-6 text-base ">
               <span>Total cost</span>
-              <span>$600</span>
+              <span>${totalPrice + 10}</span>
             </div>
             <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
               Checkout

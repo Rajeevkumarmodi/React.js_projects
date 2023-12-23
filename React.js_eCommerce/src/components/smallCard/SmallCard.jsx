@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/addToCartSlice";
 import toast, { Toaster } from "react-hot-toast";
+import { FaCartPlus } from "react-icons/fa";
 
 function SmallCard({ data }) {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ function SmallCard({ data }) {
                 <p className="text-red-400">
                   <del>${product.price}</del>
                 </p>
-                <p className="font-bold text-lg ">
+                <p className="font-semibold text-base ">
                   $
                   {(
                     product.price -
@@ -81,8 +82,9 @@ function SmallCard({ data }) {
                       product.category
                     )
                   }
-                  className="bg-blue-700 px-4 py-1 rounded-lg text-white font-bold hover:shadow-lg"
+                  className="flex items-center justify-end gap-1 bg-blue-700 px-4 py-1 rounded-lg text-white font-bold hover:shadow-lg"
                 >
+                  <FaCartPlus />
                   Add To Cart
                 </button>
               </div>
