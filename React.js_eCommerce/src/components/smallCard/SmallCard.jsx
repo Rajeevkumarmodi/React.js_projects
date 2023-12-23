@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/addToCartSlice";
+import { addToCart } from "../../redux/cartSlice";
 import toast, { Toaster } from "react-hot-toast";
 import { FaCartPlus } from "react-icons/fa";
 
@@ -82,7 +82,7 @@ function SmallCard({ data }) {
                       product.category
                     )
                   }
-                  className="flex items-center justify-end gap-1 bg-blue-700 px-4 py-1 rounded-lg text-white font-bold hover:shadow-lg"
+                  className="flex items-center  gap-1 bg-blue-700 px-4 py-1 rounded-lg text-white font-bold hover:shadow-lg"
                 >
                   <FaCartPlus />
                   Add To Cart

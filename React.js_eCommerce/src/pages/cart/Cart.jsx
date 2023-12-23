@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaPlus, FaMinus, FaArrowLeftLong } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-import { increaseQuantity, decreaseQuantity } from "../../redux/addToCartSlice";
+import {
+  increaseQuantity,
+  decreaseQuantity,
+  removeItem,
+} from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
 function Cart() {
   const dispatch = useDispatch();
@@ -61,7 +65,10 @@ function Cart() {
                     />
                     <div className="flex flex-col gap-2 ">
                       <p className="font-bold">{product.title}</p>
-                      <AiOutlineDelete className="  absolute right-[0px] text-2xl cursor-pointer hover:scale-110 duration-300" />
+                      <AiOutlineDelete
+                        onClick={() => dispatch(removeItem(product.id))}
+                        className="  absolute right-[0px] text-2xl cursor-pointer hover:scale-110 duration-300"
+                      />
                       <div className="md:w-[35vw] w-[50vw] gap-2 flex justify-between">
                         <p className="font-bold">${product.price}</p>
                         <div className="flex gap-2 items-center cursor-pointer">

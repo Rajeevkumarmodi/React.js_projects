@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { singleProduct } from "../../API/api";
 import "../../../src/index.css";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/addToCartSlice";
+import { addToCart } from "../../redux/cartSlice";
 import toast, { Toaster } from "react-hot-toast";
 
 function SingleProductPage() {
