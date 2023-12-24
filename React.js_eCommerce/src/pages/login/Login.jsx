@@ -33,13 +33,13 @@ function Login() {
 
   return (
     <div className=" mt-[50px] h-[100vh] flex items-center justify-center">
-      <div className="shadow-lg shadow-gray-400 rounded-lg p-8">
+      <div className="shadow-lg shadow-gray-400 rounded-lg p-5">
         <h2 className="text-center py-2 text-2xl font-bold">Login</h2>
         <div className="w-[80vw] flex items-center justify-between p-4">
           <div className="hidden md:block">
             <img className="w-[80%]" src={loginImg} alt="login image" />
           </div>
-          <form className="flex flex-col items-center gap-5">
+          <form className="flex flex-col items-center gap-4">
             <div className="flex flex-col">
               <label htmlFor="email">Email</label>
               <input
@@ -81,6 +81,7 @@ function Login() {
             >
               Login
             </button>
+            <p className="font-bold my-[-5px] text-xl">-- or --</p>
             <button className="bg-red-600  text-white justify-center w-full py-2 rounded-lg flex items-center gap-1 ">
               <FaGoogle />
               Login with Google
