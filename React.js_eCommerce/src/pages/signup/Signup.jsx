@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import signupImg from "../../assets/signup_img.png";
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
+import { auth } from "../../firebaseConfig/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 function Signup() {
   const [inputVal, setInputVal] = useState({
@@ -9,6 +12,7 @@ function Signup() {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState("password");
 
   function signupForm(e) {
     e.preventDefault();
@@ -23,7 +27,18 @@ function Signup() {
     } else if (!email.includes("@" && ".")) {
       toast.error("Please enter valid email");
     } else {
-      toast.success("signup successfull 👍");
+      // toast.success("signup successfull 👍");
+      try {
+        const res = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password,
+          name
+        );
+        console.log(res);
+      } catch (error) {
+        console.log("error", error);
+      }
     }
   }
 
@@ -66,17 +81,28 @@ function Signup() {
                 onChange={(e) => handlerChange(e)}
               />
             </div>
-            <div className="flex flex-col ">
+            <div className="flex flex-col relative">
               <label htmlFor="pass">Password</label>
               <input
                 className=" py-1 md:w-[35vw] w-[70vw] border-2 border-gray-300 rounded-lg px-2 focus:outline-none shadow-md shadow-gray-200"
-                type="password"
+                type={showPassword}
                 placeholder="enter password"
                 id="pss"
                 name="password"
                 value={inputVal.password}
                 onChange={(e) => handlerChange(e)}
               />
+              {showPassword === "password" ? (
+                <FaEye
+                  className="cursor-pointer absolute right-3 top-8 text-xl"
+                  onClick={() => setShowPassword("text")}
+                />
+              ) : (
+                <FaEyeSlash
+                  className="cursor-pointer absolute right-3 top-8 text-xl"
+                  onClick={() => setShowPassword("password")}
+                />
+              )}
             </div>
             <button
               onClick={(e) => signupForm(e)}
