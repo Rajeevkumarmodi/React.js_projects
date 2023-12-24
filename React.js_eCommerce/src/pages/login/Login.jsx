@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import loginImg from "../../assets/login_img.png";
 import toast, { Toaster } from "react-hot-toast";
-import { FaEyeSlash, FaEye } from "react-icons/fa";
+import { FaEyeSlash, FaEye, FaGoogle } from "react-icons/fa";
 
 function Login() {
   const [inputVal, setInputVal] = useState({
@@ -31,7 +32,7 @@ function Login() {
   }
 
   return (
-    <div className=" mt-[80px] h-[100vh] flex items-center justify-center">
+    <div className=" mt-[50px] h-[100vh] flex items-center justify-center">
       <div className="shadow-lg shadow-gray-400 rounded-lg p-8">
         <h2 className="text-center py-2 text-2xl font-bold">Login</h2>
         <div className="w-[80vw] flex items-center justify-between p-4">
@@ -76,10 +77,20 @@ function Login() {
             </div>
             <button
               onClick={(e) => loginForm(e)}
-              className="bg-blue-500 py-1 px-6 rounded-lg text-white text-lg hover:shadow-md"
+              className="bg-blue-500 w-full py-1 px-10 rounded-lg text-white text-lg hover:shadow-md"
             >
               Login
             </button>
+            <button className="bg-red-600  text-white justify-center w-full py-2 rounded-lg flex items-center gap-1 ">
+              <FaGoogle />
+              Login with Google
+            </button>
+            <p className="font-bodyFont md:text-lg text-xs">
+              Dont`t have an account?{" "}
+              <Link to="/signup" className="text-blue-600 font-bold">
+                Signup
+              </Link>
+            </p>
           </form>
         </div>
       </div>
