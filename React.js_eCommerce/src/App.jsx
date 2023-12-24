@@ -5,6 +5,7 @@ import HomePage from "./pages/homePage/HomePage";
 import Footer from "./components/footer/Footer";
 import SingleProductPage from "./pages/singleProductPage/SingleProductPage";
 import Cart from "./pages/cart/Cart";
+import Login from "./pages/login/Login";
 function App() {
   return (
     <div>
@@ -14,6 +15,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/product/:id" element={<SingleProductPage />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+
           <Route path="/order" element={<p>This is order page</p>} />
           <Route path="/profile" element={<p>This is profile page</p>} />
         </Routes>
