@@ -24,6 +24,11 @@ function Header() {
   const [isCategoryManuOpen, setIsCategoryManuOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState("All");
 
+  function handelLogout() {
+    dispatch(removeUser());
+    localStorage.removeItem("auth-token");
+  }
+
   const cartData = useSelector((state) => state.allCartData.cart);
   return (
     <div className="w-full">
@@ -71,7 +76,15 @@ function Header() {
             </Link>
 
             {isLogin ? (
-              <RxAvatar className="text-3xl cursor-pointer" />
+              <div className="flex gap-2">
+                <RxAvatar className="text-3xl cursor-pointer" />
+                <button
+                  onClick={handelLogout}
+                  className="hidden md:block  bg-red-700 text-white px-2 rounded-lg"
+                >
+                  Logout
+                </button>
+              </div>
             ) : (
               <Link
                 to="/login"
@@ -135,7 +148,15 @@ function Header() {
       {/* mobile manu */}
 
       {isOpenManu && (
-        <div className="md:hidden  fixed  right-0 flex flex-col gap-5 items-center justify-center w-[200px] h-full bg-gray-300">
+        <div className="z-50 md:hidden  fixed  right-0 flex flex-col gap-5 items-center justify-center w-[200px] h-full bg-gray-300">
+          {isLogin && (
+            <button
+              onClick={handelLogout}
+              className="  bg-red-700 text-white px-4 py-1 rounded-lg"
+            >
+              Logout
+            </button>
+          )}
           <NavLink
             to="/"
             onClick={() => setIsOpenManu(false)}
