@@ -8,6 +8,8 @@ import { auth } from "../../firebaseConfig/firebase";
 import Spinner from "../../components/spinner/Spinner";
 import { addUser } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,6 +20,7 @@ function Login() {
 
   const [showPassword, setShowPassword] = useState("password");
   const [loading, setLoading] = useState(false);
+  const [loaderForGoogle, setLoaderForGoogle] = useState(false);
 
   async function loginForm(e) {
     e.preventDefault();
@@ -31,10 +34,17 @@ function Login() {
       try {
         setLoading(true);
         const res = await signInWithEmailAndPassword(auth, email, password);
+
         console.log(res);
         if (res.user.refreshToken) {
           localStorage.setItem("auth-token", res.user.refreshToken);
-          dispatch(addUser({ email: res.user.email, userId: res.user.uid }));
+          dispatch(
+            addUser({
+              email: res.user.email,
+              userId: res.user.uid,
+              name: res.user.displayName,
+            })
+          );
           toast.success("successfully login 👍");
           navigate("/");
         }
@@ -48,6 +58,47 @@ function Login() {
       } finally {
         setLoading(false);
       }
+    }
+  }
+
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+  async function handelGoogleLogin(e) {
+    e.preventDefault();
+
+    try {
+      setLoaderForGoogle(true);
+      const result = await signInWithPopup(auth, provider);
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      if (user.accessToken) {
+        toast.success("User login successfully");
+        dispatch(
+          addUser({
+            name: user.displayName,
+            email: user.email,
+            photoUrl: user.photoURL,
+            userId: user.uid,
+          })
+        );
+        localStorage.setItem("auth-token", user.refreshToken);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+    } finally {
+      setLoaderForGoogle(false);
     }
   }
 
@@ -114,10 +165,19 @@ function Login() {
               )}
             </div>
             <p className="font-bold my-[-5px] text-xl">-- or --</p>
-            <button className="bg-red-600  text-white justify-center w-full py-2 rounded-lg flex items-center gap-1 ">
-              <FaGoogle />
-              Login with Google
-            </button>
+            <div className="w-full bg-red-600 py-2 rounded-lg text-white flex justify-center">
+              {loaderForGoogle ? (
+                <Spinner />
+              ) : (
+                <button
+                  onClick={handelGoogleLogin}
+                  className="flex items-center gap-1 "
+                >
+                  <FaGoogle />
+                  Login with Google
+                </button>
+              )}
+            </div>
             <p className="font-bodyFont md:text-lg text-xs">
               Dont`t have an account?{" "}
               <Link to="/signup" className="text-blue-600 font-bold">

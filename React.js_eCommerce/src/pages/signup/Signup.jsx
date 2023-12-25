@@ -7,6 +7,7 @@ import { auth, db } from "../../firebaseConfig/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
 import Spinner from "../../components/spinner/Spinner";
+import { updateProfile } from "firebase/auth";
 
 function Signup() {
   const navigate = useNavigate();
@@ -34,6 +35,8 @@ function Signup() {
       try {
         setLoading(true);
         const res = await createUserWithEmailAndPassword(auth, email, password);
+
+        updateProfile(auth.currentUser, { displayName: inputVal.name });
         if (res.user.accessToken) {
           toast.success("Signup SuccessFull 👍");
           setInputVal({
@@ -43,17 +46,16 @@ function Signup() {
           });
           navigate("/login");
         }
-        console.log("res", res);
         const storeData = await addDoc(collection(db, "allUsers"), {
           name: inputVal.name,
           email: inputVal.email,
-          password: inputVal.password,
           userId: res.user.uid,
         });
 
-        console.log(storeData);
+        console.log(res);
       } catch (error) {
         toast.error(error.message);
+        console.log(error);
       } finally {
         setLoading(false);
       }

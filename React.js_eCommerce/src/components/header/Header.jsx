@@ -19,7 +19,6 @@ import "./header.css";
 function Header() {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.allCartData.userInfo);
-  console.log(isLogin);
   const [isOpenManu, setIsOpenManu] = useState(false);
   const [isCategoryManuOpen, setIsCategoryManuOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState("All");
