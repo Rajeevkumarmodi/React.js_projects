@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import signupImg from "../../assets/signup_img.png";
 import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { auth } from "../../firebaseConfig/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
+import { Firestore } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebaseConfig/firebase";
+import Spinner from "../../components/spinner/Spinner";
+
 function Signup() {
+  const navigate = useNavigate();
   const [inputVal, setInputVal] = useState({
     name: "",
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState("password");
+  const [loading, setLoading] = useState(false);
 
-  function signupForm(e) {
+  async function signupForm(e) {
     e.preventDefault();
     fetchSignupData();
   }
@@ -27,17 +34,31 @@ function Signup() {
     } else if (!email.includes("@" && ".")) {
       toast.error("Please enter valid email");
     } else {
-      // toast.success("signup successfull 👍");
       try {
-        const res = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password,
-          name
-        );
-        console.log(res);
+        setLoading(true);
+        const res = await createUserWithEmailAndPassword(auth, email, password);
+        if (res.user.accessToken) {
+          toast.success("Signup SuccessFull 👍");
+          setInputVal({
+            name: "",
+            email: "",
+            password: "",
+          });
+          navigate("/login");
+        }
+        console.log("res", res);
+        const storeData = await addDoc(collection(db, "allUsers"), {
+          name: inputVal.name,
+          email: inputVal.email,
+          password: inputVal.password,
+          userId: res.user.uid,
+        });
+
+        console.log(storeData);
       } catch (error) {
-        console.log("error", error);
+        toast.error(error.message);
+      } finally {
+        setLoading(false);
       }
     }
   }
@@ -104,12 +125,18 @@ function Signup() {
                 />
               )}
             </div>
-            <button
-              onClick={(e) => signupForm(e)}
-              className="w-full bg-blue-500 py-1 px-3 rounded-lg text-white text-lg hover:shadow-md"
-            >
-              Signup
-            </button>
+            <div className="bg-blue-500 w-full rounded-lg flex justify-center  text-white text-lg py-1">
+              {loading ? (
+                <Spinner />
+              ) : (
+                <button
+                  onClick={(e) => signupForm(e)}
+                  className=" hover:shadow-md"
+                >
+                  Signup
+                </button>
+              )}
+            </div>
             <p className="font-bodyFont text-xs md:text-lg">
               Already have an account?{" "}
               <Link to="/login" className="font-bold text-blue-500">
