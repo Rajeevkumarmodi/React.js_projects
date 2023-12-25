@@ -43,6 +43,7 @@ function Login() {
               email: res.user.email,
               userId: res.user.uid,
               name: res.user.displayName,
+              photoUrl: res.user.photoURL,
             })
           );
           toast.success("successfully login 👍");

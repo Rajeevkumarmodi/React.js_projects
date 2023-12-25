@@ -19,6 +19,7 @@ import "./header.css";
 function Header() {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.allCartData.userInfo);
+  console.log(isLogin);
   const [isOpenManu, setIsOpenManu] = useState(false);
   const [isCategoryManuOpen, setIsCategoryManuOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState("All");
@@ -76,7 +77,15 @@ function Header() {
 
             {isLogin ? (
               <div className="flex gap-2">
-                <RxAvatar className="text-3xl cursor-pointer" />
+                {isLogin.photoUrl ? (
+                  <img
+                    className="w-[30px] rounded-full"
+                    src={isLogin.photoUrl}
+                    alt="login image"
+                  />
+                ) : (
+                  <RxAvatar className="text-3xl cursor-pointer" />
+                )}
                 <button
                   onClick={handelLogout}
                   className="hidden md:block  bg-red-700 text-white px-2 rounded-lg"

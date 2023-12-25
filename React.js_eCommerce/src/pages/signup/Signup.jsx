@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { auth, db } from "../../firebaseConfig/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
 import Spinner from "../../components/spinner/Spinner";
 import { updateProfile } from "firebase/auth";
 
@@ -46,11 +45,6 @@ function Signup() {
           });
           navigate("/login");
         }
-        const storeData = await addDoc(collection(db, "allUsers"), {
-          name: inputVal.name,
-          email: inputVal.email,
-          userId: res.user.uid,
-        });
 
         console.log(res);
       } catch (error) {
