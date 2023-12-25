@@ -3,12 +3,9 @@ import signupImg from "../../assets/signup_img.png";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import { auth } from "../../firebaseConfig/firebase";
+import { auth, db } from "../../firebaseConfig/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
-import { Firestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebaseConfig/firebase";
 import Spinner from "../../components/spinner/Spinner";
 
 function Signup() {

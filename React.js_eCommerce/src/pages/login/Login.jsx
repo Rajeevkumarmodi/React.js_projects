@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/login_img.png";
 import toast, { Toaster } from "react-hot-toast";
 import { FaEyeSlash, FaEye, FaGoogle } from "react-icons/fa";
-
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebaseConfig/firebase";
+import Spinner from "../../components/spinner/Spinner";
+import { addUser } from "../../redux/cartSlice";
+import { useDispatch } from "react-redux";
 function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [inputVal, setInputVal] = useState({
     email: "",
     password: "",
   });
 
   const [showPassword, setShowPassword] = useState("password");
+  const [loading, setLoading] = useState(false);
 
   async function loginForm(e) {
     e.preventDefault();
@@ -21,7 +28,26 @@ function Login() {
     } else if (!email.includes("." && "@")) {
       toast.error("please enter valid email ⚠️");
     } else {
-      toast.success("login successfully 👍");
+      try {
+        setLoading(true);
+        const res = await signInWithEmailAndPassword(auth, email, password);
+        console.log(res);
+        if (res.user.refreshToken) {
+          localStorage.setItem("auth-token", res.user.refreshToken);
+          dispatch(addUser({ email: res.user.email, userId: res.user.uid }));
+          toast.success("successfully login 👍");
+          navigate("/");
+        }
+        setInputVal({
+          name: "",
+          email: "",
+          password: "",
+        });
+      } catch (error) {
+        toast.error(error.message);
+      } finally {
+        setLoading(false);
+      }
     }
   }
 
@@ -75,12 +101,18 @@ function Login() {
                 />
               )}
             </div>
-            <button
-              onClick={(e) => loginForm(e)}
-              className="bg-blue-500 w-full py-1 px-10 rounded-lg text-white text-lg hover:shadow-md"
-            >
-              Login
-            </button>
+            <div className="bg-blue-500 w-full rounded-lg flex justify-center  text-white text-lg py-1">
+              {loading ? (
+                <Spinner />
+              ) : (
+                <button
+                  onClick={(e) => loginForm(e)}
+                  className=" hover:shadow-md"
+                >
+                  Login
+                </button>
+              )}
+            </div>
             <p className="font-bold my-[-5px] text-xl">-- or --</p>
             <button className="bg-red-600  text-white justify-center w-full py-2 rounded-lg flex items-center gap-1 ">
               <FaGoogle />

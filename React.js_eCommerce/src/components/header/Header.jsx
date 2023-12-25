@@ -12,11 +12,14 @@ import { VscThreeBars } from "react-icons/vsc";
 import { FaSearch } from "react-icons/fa";
 import { HiOutlineBars4 } from "react-icons/hi2";
 import AllCategories from "../allCategories/AllCategories";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { removeUser } from "../../redux/cartSlice";
 import "./header.css";
 
 function Header() {
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.allCartData.userInfo);
+  console.log(isLogin);
   const [isOpenManu, setIsOpenManu] = useState(false);
   const [isCategoryManuOpen, setIsCategoryManuOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState("All");
@@ -66,13 +69,18 @@ function Header() {
                 {cartData.length}
               </p>
             </Link>
-            <Link
-              to="/login"
-              className="bg-gray-500 text-white py-1 md:px-5 px-3 rounded-lg "
-            >
-              Login
-            </Link>
-            {/* <RxAvatar className="text-3xl cursor-pointer" /> */}
+
+            {isLogin ? (
+              <RxAvatar className="text-3xl cursor-pointer" />
+            ) : (
+              <Link
+                to="/login"
+                className="bg-gray-500 text-white py-1 md:px-5 px-3 rounded-lg "
+              >
+                Login
+              </Link>
+            )}
+
             {isOpenManu ? (
               <IoClose
                 onClick={() => setIsOpenManu(!isOpenManu)}
