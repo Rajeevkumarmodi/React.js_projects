@@ -15,12 +15,14 @@ import AllCategories from "../allCategories/AllCategories";
 import { useSelector, useDispatch } from "react-redux";
 import { removeUser } from "../../redux/cartSlice";
 import "./header.css";
+import SmallManu from "../smallManu/SmallManu";
+import Mobilemanu from "../mobileManu/Mobilemanu";
 
 function Header() {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.allCartData.userInfo);
-  console.log(isLogin);
   const [isOpenManu, setIsOpenManu] = useState(false);
+  const [isOpenSmallManu, setIsOpenSmallManu] = useState(false);
   const [isCategoryManuOpen, setIsCategoryManuOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState("All");
 
@@ -32,7 +34,7 @@ function Header() {
   const cartData = useSelector((state) => state.allCartData.cart);
   return (
     <div className="w-full">
-      <div className="z-50 fixed w-full top-0 ">
+      <div className="z-10 fixed w-full top-0 ">
         <div className="flex items-center justify-between md:px-[80px] px-[10px] h-[50px] bg-white border-b-2 border-gray-400">
           <div>
             <Link
@@ -49,19 +51,19 @@ function Header() {
           <div className="hidden md:block">
             <NavLink
               to="/"
-              className=" text-gray-700 hover:border-2 hover:duration-200 hover:border-orange-500 rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
+              className=" text-gray-700  hover:shadow-md hover:px-2 hover:py-1  hover:shadow-gray-600 hover:rounded-lg rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
             >
               Home
             </NavLink>
             <NavLink
               to="/shop"
-              className=" text-gray-700 hover:border-2 hover:border-orange-500 hover:duration-200 rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
+              className=" text-gray-700  hover:shadow-md hover:px-2 hover:py-1 hover:shadow-gray-600 hover:rounded-lg hover:duration-200 rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
             >
               Shop
             </NavLink>
             <NavLink
               to="/about"
-              className=" text-gray-700 hover:border-2 hover:duration-200 hover:border-orange-500 rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
+              className=" text-gray-700   hover:shadow-md hover:px-2 hover:py-1 hover:shadow-gray-600 hover:rounded-lg rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
             >
               About
             </NavLink>
@@ -76,15 +78,19 @@ function Header() {
             </Link>
 
             {isLogin ? (
-              <div className="flex gap-2">
+              <div className="flex gap-2 relative">
                 {isLogin.photoUrl ? (
                   <img
-                    className="w-[30px] rounded-full"
+                    onClick={() => setIsOpenSmallManu(!isOpenSmallManu)}
+                    className="w-[30px] rounded-full cursor-pointer"
                     src={isLogin.photoUrl}
                     alt="login image"
                   />
                 ) : (
-                  <RxAvatar className="text-3xl cursor-pointer" />
+                  <RxAvatar
+                    onClick={() => setIsOpenSmallManu(!!isOpenSmallManu)}
+                    className="text-3xl cursor-pointer"
+                  />
                 )}
                 <button
                   onClick={handelLogout}
@@ -92,6 +98,11 @@ function Header() {
                 >
                   Logout
                 </button>
+                <div className="absolute z-50 top-7 md:right-3 right-[-50px]">
+                  {isOpenSmallManu && (
+                    <SmallManu setIsOpenSmallManu={setIsOpenSmallManu} />
+                  )}
+                </div>
               </div>
             ) : (
               <Link
@@ -103,10 +114,17 @@ function Header() {
             )}
 
             {isOpenManu ? (
-              <IoClose
-                onClick={() => setIsOpenManu(!isOpenManu)}
-                className="md:hidden  text-3xl cursor-pointer"
-              />
+              <div className="relative">
+                <IoClose
+                  onClick={() => setIsOpenManu(!isOpenManu)}
+                  className="md:hidden  text-3xl cursor-pointer"
+                />
+                <div className="absolute z-40 top-10 right-[-10px]">
+                  {/* ============================mobile manu================ */}
+
+                  <Mobilemanu setIsOpenManu={setIsOpenManu} />
+                </div>
+              </div>
             ) : (
               <VscThreeBars
                 onClick={() => setIsOpenManu(!isOpenManu)}
@@ -116,7 +134,7 @@ function Header() {
           </div>
         </div>
 
-        {/* filter and search */}
+        {/* ==============================filter and search================================ */}
 
         <div className=" bg-gray-100 flex md:flex-row flex-col items-center justify-center md:gap-10 gap-3 py-4">
           <div className="relative flex items-center gap-2 cursor-pointer">
@@ -131,7 +149,7 @@ function Header() {
               Filter by Category
             </p>
             {isCategoryManuOpen && (
-              <div className="absolute md:top-[30px] top-[20px] md:left-[-80px] left-[-50px]  z-10">
+              <div className=" absolute z-30 md:top-[30px] top-[20px] md:left-[-80px] left-[-50px] ">
                 <AllCategories
                   setIsCategoryManuOpen={setIsCategoryManuOpen}
                   isCategoryManuOpen={isCategoryManuOpen}
@@ -141,53 +159,17 @@ function Header() {
               </div>
             )}
           </div>
-          <div className=" flex items-center relative">
+          <div className="z-0 flex items-center relative">
             <input
               className="border-2 border-gray-400 border-r-0 rounded-l-lg outline-none px-2  "
               type="text"
             />
-            <div className=" bg-blue-600 p-[6px] rounded-r-lg ">
+            <div className=" z-0 bg-blue-600 p-[6px] rounded-r-lg ">
               <FaSearch className="text-white cursor-pointer" />
             </div>
           </div>
         </div>
       </div>
-
-      {/* mobile manu */}
-
-      {isOpenManu && (
-        <div className="z-50 md:hidden  fixed  right-0 flex flex-col gap-5 items-center justify-center w-[200px] h-full bg-gray-300">
-          {isLogin && (
-            <button
-              onClick={handelLogout}
-              className="  bg-red-700 text-white px-4 py-1 rounded-lg"
-            >
-              Logout
-            </button>
-          )}
-          <NavLink
-            to="/"
-            onClick={() => setIsOpenManu(false)}
-            className=" text-gray-700 hover:border-2 hover:duration-200 hover:border-orange-500 rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="/shop"
-            onClick={() => setIsOpenManu(false)}
-            className=" text-gray-700 hover:border-2 hover:border-orange-500 hover:duration-200 rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
-          >
-            Shop
-          </NavLink>
-          <NavLink
-            to="/about"
-            onClick={() => setIsOpenManu(false)}
-            className=" text-gray-700 hover:border-2 hover:duration-200 hover:border-orange-500 rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
-          >
-            About
-          </NavLink>
-        </div>
-      )}
     </div>
   );
 }

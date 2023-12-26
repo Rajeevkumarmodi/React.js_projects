@@ -3,8 +3,9 @@ import { FaAmbulance, FaCartPlus } from "react-icons/fa";
 import { RxAvatar } from "react-icons/rx";
 import { MdLogout } from "react-icons/md";
 import SmallManuButton from "../smallManuButton/SmallManuButton";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
-function SmallManu() {
+function SmallManu({ setIsOpenSmallManu }) {
   const manuData = [
     {
       buttonName: "Profile",
@@ -28,27 +29,34 @@ function SmallManu() {
     },
   ];
 
+  function handleClickAway() {
+    setIsOpenSmallManu(false);
+  }
+
   return (
-    <div className="w-[160px]">
-      <div
-        className="w-0 h-0 relative left-[75px]
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <div className="w-[160px] z-50">
+        <div
+          className="w-0 h-0 relative left-[75px]
         border-l-[10px] border-l-transparent
         border-b-[15px] border-b-gray-400
         border-r-[10px] border-r-transparent"
-      ></div>
-      <div className="flex flex-col bg-gray-300 p-4 gap-3 font-bodyFont rounded-md">
-        {manuData.map((data, index) => {
-          return (
-            <SmallManuButton
-              key={index}
-              buttonName={data.buttonName}
-              icon={data.icon}
-              to={data.to}
-            />
-          );
-        })}
+        ></div>
+        <div className="flex flex-col bg-blue-300 p-4 gap-3 font-bodyFont rounded-md">
+          {manuData.map((data, index) => {
+            return (
+              <SmallManuButton
+                key={index}
+                buttonName={data.buttonName}
+                icon={data.icon}
+                to={data.to}
+                setIsOpenSmallManu={setIsOpenSmallManu}
+              />
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </ClickAwayListener>
   );
 }
 
