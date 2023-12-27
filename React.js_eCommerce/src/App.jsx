@@ -7,6 +7,9 @@ import SingleProductPage from "./pages/singleProductPage/SingleProductPage";
 import Cart from "./pages/cart/Cart";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import OrderSuccess from "./pages/orderSuccess/OrderSuccess";
+import MyOrders from "./pages/myOrders/MyOrders";
 function App() {
   return (
     <div>
@@ -18,9 +21,23 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-
-          <Route path="/myorder" element={<p>This is order page</p>} />
-          <Route path="/profile" element={<p>This is profile page</p>} />
+          <Route path="/order-success" element={<OrderSuccess />} />
+          <Route
+            path="/myorder"
+            element={
+              <ProtectedRoute>
+                <MyOrders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <p>This is profile page</p>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
