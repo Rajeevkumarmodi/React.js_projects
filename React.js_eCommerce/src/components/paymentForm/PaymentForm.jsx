@@ -7,7 +7,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { removeAllItems } from "../../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
-function PaymentForm() {
+import { collection, addDoc } from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { db } from "../../firebaseConfig/firebase";
+function PaymentForm({ totalPrice }) {
+  const allData = useSelector((state) => state.allCartData);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState({
@@ -17,23 +21,37 @@ function PaymentForm() {
     cardHolderName: "",
   });
 
+  const [paymentLoading, setPaymentLoading] = useState(false);
+
   function changeHandler(e) {
     const { name, value } = e.target;
     setInputValue({ ...inputValue, [name]: value });
   }
 
-  function paymentHandel(e) {
+  async function paymentHandel(e) {
     e.preventDefault();
     const { cardNo, cardHolderName, cvvNo, expiryData } = inputValue;
-
     if (!cardHolderName || !cardNo || !cvvNo || !expiryData) {
       toast.error("All fields are requied 😒");
     } else {
-      toast.success("Your Order is Successfully Don");
-      dispatch(removeAllItems());
+      setPaymentLoading(true);
+      try {
+        const storeData = await addDoc(collection(db, "allusers"), {
+          userId: allData.userInfo.userId,
+          orders: allData.cart,
+          orderDate: new Date().toDateString(),
+        });
+      } catch (error) {
+        toast.error(error.massege);
+      }
       setTimeout(() => {
-        navigate("/");
+        toast.success("Your Order is Successfully Don");
+        setPaymentLoading(false);
       }, 1000);
+      setTimeout(() => {
+        dispatch(removeAllItems());
+        navigate("/order-success");
+      }, 1500);
     }
   }
 
@@ -52,7 +70,7 @@ function PaymentForm() {
           </div>
           <div className="mb-5 mt-4 relative">
             <label
-              for="input-number"
+              htmlFor="input-number"
               className="block text-sm font-medium mb-2"
             >
               Card number
@@ -75,7 +93,7 @@ function PaymentForm() {
           <div className="flex gap-2">
             <div className="mb-5 mt-3">
               <label
-                for="input-number"
+                htmlFor="input-number"
                 className="block text-sm font-medium mb-2"
               >
                 Expiration date
@@ -92,7 +110,7 @@ function PaymentForm() {
             </div>
             <div className="mb-5 mt-3 relative">
               <label
-                for="input-number"
+                htmlFor="input-number"
                 className="block text-sm font-medium mb-2"
               >
                 CVV
@@ -112,7 +130,7 @@ function PaymentForm() {
           <div>
             <div className="mb-5 mt-3">
               <label
-                for="input-number"
+                htmlFor="input-number"
                 className="block text-sm font-medium mb-2"
               >
                 Card holder name
@@ -129,14 +147,18 @@ function PaymentForm() {
             </div>
           </div>
           <div>
-            <div>
-              <button
-                onClick={paymentHandel}
-                className="flex items-center gap-1 bg-blue-600 w-full py-2 justify-center text-white font-bold rounded-lg"
-              >
-                <CiLock className="text-xl" />
-                Pay $1000
-              </button>
+            <div className="bg-blue-600 w-full flex justify-center py-2 font-bold rounded-lg text-white">
+              {paymentLoading ? (
+                <Spinner />
+              ) : (
+                <button
+                  onClick={paymentHandel}
+                  className="flex gap-1 items-center"
+                >
+                  <CiLock className="text-xl" />
+                  Pay ${totalPrice + 10}
+                </button>
+              )}
             </div>
           </div>
         </form>

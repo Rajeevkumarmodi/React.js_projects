@@ -3,18 +3,25 @@ import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaPlus, FaMinus, FaArrowLeftLong } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import { removeAllItems } from "../../redux/cartSlice";
 import {
   increaseQuantity,
   decreaseQuantity,
   removeItem,
 } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
+import PaymentForm from "../../components/paymentForm/PaymentForm";
+import toast, { Toaster } from "react-hot-toast";
+
 function Cart() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.allCartData.cart);
+  const userInfo = useSelector((state) => state.allCartData.userInfo);
+
   const [cartData, setCartData] = useState(data);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isOpenPay, setisOpenPay] = useState(false);
 
   useEffect(() => {
     setCartData(data);
@@ -26,6 +33,15 @@ function Cart() {
       );
     }
   }, [data]);
+
+  function checkOutHandel() {
+    if (!userInfo) {
+      toast.error("Please login to checkout");
+    } else {
+      setisOpenPay(true);
+      setPaymentLoading(true);
+    }
+  }
 
   if (cartData.length === 0) {
     return (
@@ -97,6 +113,20 @@ function Cart() {
                 </div>
               );
             })}
+          <div className="flex gap-8 my-4">
+            <button
+              onClick={() => dispatch(removeAllItems())}
+              className="bg-red-600 px-4 py-1 text-white rounded-lg"
+            >
+              Reset Cart
+            </button>
+            <Link
+              to="/"
+              className="flex items-center gap-1 text-blue-600 font-bold"
+            >
+              <FaArrowLeftLong /> Shopping Continue
+            </Link>
+          </div>
         </div>
         {/* right side  */}
 
@@ -113,17 +143,26 @@ function Cart() {
             <p>$10</p>
           </div>
 
-          <div className="border-t mt-4 ">
+          <div className="border-t mt-4 relative">
             <div className="flex font-bold justify-between py-6 text-base ">
               <span>Total cost</span>
               <span>${totalPrice + 10}</span>
             </div>
-            <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+            <button
+              onClick={checkOutHandel}
+              className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
+            >
               Checkout
             </button>
+            {isOpenPay && (
+              <div className="absolute md:top-[-200px] top-[-500px] right-[-60px] ">
+                <PaymentForm totalPrice={totalPrice} />
+              </div>
+            )}
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }

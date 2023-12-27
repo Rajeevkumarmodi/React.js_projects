@@ -42,7 +42,7 @@ function SmallManu({ setIsOpenSmallManu }) {
         border-b-[15px] border-b-gray-400
         border-r-[10px] border-r-transparent"
         ></div>
-        <div className="flex flex-col bg-blue-300 p-4 gap-3 font-bodyFont rounded-md">
+        <div className="flex flex-col bg-blue-400 p-4 gap-3 font-bodyFont rounded-md">
           {manuData.map((data, index) => {
             return (
               <SmallManuButton
