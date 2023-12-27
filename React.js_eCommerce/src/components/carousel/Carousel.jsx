@@ -42,14 +42,14 @@ function Carousel() {
 
   return (
     <div className="  my-3 overflow-x-hidden relative w-full ">
-      <div className="z-30">
+      <div className="z-0">
         <FaArrowAltCircleRight
           onClick={handelCarousel(+1)}
-          className=" absolute right-3 top-[50%] z-30   w-10 cursor-pointer text-center rounded-lg text-4xl text-white"
+          className=" absolute right-3 top-[50%] z-10   w-10 cursor-pointer text-center rounded-lg text-4xl text-white"
         />
         <FaArrowAltCircleLeft
           onClick={handelCarousel(-1)}
-          className=" absolute left-3 top-[50%] z-30   w-10 cursor-pointer text-center rounded-lg text-4xl text-white"
+          className=" absolute left-3 top-[50%] z-10  w-10 cursor-pointer text-center rounded-lg text-4xl text-white"
         />
       </div>
       <div

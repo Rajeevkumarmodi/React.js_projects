@@ -3,11 +3,12 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { RxAvatar } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import { FaBars } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { LiaAmbulanceSolid } from "react-icons/lia";
 import { FaCartArrowDown } from "react-icons/fa";
 import pngLogo from "../../assets/pngLogo.png";
 import { IoCloseSharp } from "react-icons/io5";
+import { LuLogOut } from "react-icons/lu";
 import { VscThreeBars } from "react-icons/vsc";
 import { FaSearch } from "react-icons/fa";
 import { HiOutlineBars4 } from "react-icons/hi2";
@@ -17,9 +18,11 @@ import { removeUser } from "../../redux/cartSlice";
 import "./header.css";
 import SmallManu from "../smallManu/SmallManu";
 import Mobilemanu from "../mobileManu/Mobilemanu";
+import toast, { Toaster } from "react-hot-toast";
 
 function Header() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLogin = useSelector((state) => state.allCartData.userInfo);
   const [isOpenManu, setIsOpenManu] = useState(false);
   const [isOpenSmallManu, setIsOpenSmallManu] = useState(false);
@@ -27,14 +30,16 @@ function Header() {
   const [selectedCategories, setSelectedCategories] = useState("All");
 
   function handelLogout() {
+    toast.error(`${isLogin.name} is Logout`);
     dispatch(removeUser());
     localStorage.removeItem("auth-token");
+    navigate("/");
   }
 
   const cartData = useSelector((state) => state.allCartData.cart);
   return (
     <div className="w-full">
-      <div className="z-10 fixed w-full top-0 ">
+      <div className="z-20 fixed w-full top-0 ">
         <div className="flex items-center justify-between md:px-[80px] px-[10px] h-[50px] bg-white border-b-2 border-gray-400">
           <div>
             <Link
@@ -48,22 +53,22 @@ function Header() {
               </div>
             </Link>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:flex gap-3 items-center">
             <NavLink
               to="/"
-              className=" text-gray-700  hover:shadow-md hover:px-2 hover:py-1  hover:shadow-gray-600 hover:rounded-lg rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
+              className=" text-gray-700  hover:shadow-md  hover:py-1  hover:shadow-gray-600 rounded-lg font-bodyFont px-2 ml-2 font-bold"
             >
               Home
             </NavLink>
             <NavLink
               to="/shop"
-              className=" text-gray-700  hover:shadow-md hover:px-2 hover:py-1 hover:shadow-gray-600 hover:rounded-lg hover:duration-200 rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
+              className=" text-gray-700  hover:shadow-md  hover:py-1 hover:shadow-gray-600 hover:duration-200 rounded-lg font-bodyFont px-2 ml-2 font-bold"
             >
               Shop
             </NavLink>
             <NavLink
               to="/about"
-              className=" text-gray-700   hover:shadow-md hover:px-2 hover:py-1 hover:shadow-gray-600 hover:rounded-lg rounded-lg font-bodyFont px-2 ml-2 font-bold rounded-l"
+              className=" text-gray-700   hover:shadow-md  hover:py-1 hover:shadow-gray-600 rounded-lg font-bodyFont px-2 ml-2 font-bold"
             >
               About
             </NavLink>
@@ -88,14 +93,15 @@ function Header() {
                   />
                 ) : (
                   <RxAvatar
-                    onClick={() => setIsOpenSmallManu(!!isOpenSmallManu)}
+                    onClick={() => setIsOpenSmallManu(!isOpenSmallManu)}
                     className="text-3xl cursor-pointer"
                   />
                 )}
                 <button
                   onClick={handelLogout}
-                  className="hidden md:block  bg-red-700 text-white px-2 rounded-lg"
+                  className="hidden md:flex items-center gap-1  bg-red-700 text-white px-2 rounded-lg"
                 >
+                  <LuLogOut />
                   Logout
                 </button>
                 <div className="absolute z-50 top-7 md:right-3 right-[-50px]">
@@ -170,6 +176,7 @@ function Header() {
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }
