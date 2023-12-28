@@ -10,6 +10,7 @@ import Signup from "./pages/signup/Signup";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import OrderSuccess from "./pages/orderSuccess/OrderSuccess";
 import MyOrders from "./pages/myOrders/MyOrders";
+import Profile from "./pages/profile/Profile";
 function App() {
   return (
     <div>
@@ -34,7 +35,7 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <p>This is profile page</p>
+                <Profile />
               </ProtectedRoute>
             }
           />
