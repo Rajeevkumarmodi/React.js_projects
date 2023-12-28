@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import OrderSuccess from "./pages/orderSuccess/OrderSuccess";
 import MyOrders from "./pages/myOrders/MyOrders";
 import Profile from "./pages/profile/Profile";
+import Shop from "./pages/shop/Shop";
 function App() {
   return (
     <div>
@@ -22,6 +23,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/shop" element={<Shop />} />
           <Route path="/order-success" element={<OrderSuccess />} />
           <Route
             path="/myorder"
