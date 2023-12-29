@@ -38,10 +38,21 @@ async function singleProduct(id) {
   return await res.json();
 }
 
+// all product featch
+
+async function allProducts(skip) {
+  const res = await fetch(
+    ` https://dummyjson.com/products?limit=12&skip=${skip}`
+  );
+
+  return await res.json();
+}
+
 export {
   fetchCategories,
   topRatedProducts,
   topDiscountProducts,
   topLaptops,
   singleProduct,
+  allProducts,
 };
