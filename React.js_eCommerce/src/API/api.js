@@ -40,12 +40,18 @@ async function singleProduct(id) {
 
 // all product featch
 
-async function allProducts(skip) {
-  const res = await fetch(
-    ` https://dummyjson.com/products?limit=12&skip=${skip}`
-  );
-
-  return await res.json();
+async function allProducts(skip, filter) {
+  if (filter === "All") {
+    const res = await fetch(
+      ` https://dummyjson.com/products?limit=12&skip=${skip}`
+    );
+    return await res.json();
+  } else {
+    const res = await fetch(
+      `https://dummyjson.com/products/category/${filter}`
+    );
+    return await res.json();
+  }
 }
 
 export {

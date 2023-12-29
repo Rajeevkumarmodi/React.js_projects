@@ -9,9 +9,10 @@ function Shop() {
   const [isOpenFiltermanu, setIsOpenFilterManu] = useState(false);
   const [allProductsData, setAllProductsData] = useState([]);
   const [pageNo, setPageNo] = useState(1);
-  // const [skip, setSkip] = useState(0);
-  let skip = 0;
   const [totalPage, setTotalPage] = useState(Array(9).fill(null));
+  const [filter, setFilter] = useState("All");
+  const [sort, setSort] = useState("Relevance");
+  let skip = 0;
 
   const allCategories = [
     "smartphones",
@@ -40,13 +41,23 @@ function Shop() {
     if (pageNo > 1) {
       skip = pageNo * 12 - 12;
     }
+
     fetchAllProducts();
-  }, [pageNo]);
+  }, [pageNo, filter, sort]);
 
   async function fetchAllProducts() {
-    const res = await allProducts(skip);
+    const res = await allProducts(skip, filter);
+    console.log(res);
     setTotalPage(Array(Math.ceil(res.total / 12)).fill(null));
-    setAllProductsData(res.products);
+    if (sort === "Relevance") {
+      setAllProductsData(res.products);
+    } else if (sort === "high-low") {
+      const sortData = res.products.sort((pre, nex) => nex.price - pre.price);
+      setAllProductsData(sortData);
+    } else if (sort === "low-high") {
+      const sortData = res.products.sort((pre, nex) => pre.price - nex.price);
+      setAllProductsData(sortData);
+    }
   }
 
   return (
@@ -78,13 +89,24 @@ function Shop() {
               Sort by
             </p>
             <ul>
-              <li className="flex gap-1">
+              <li onClick={() => setSort("Relevance")} className="flex gap-1">
+                <input
+                  id="rele"
+                  checked={sort === "Relevance"}
+                  name="sort"
+                  type="radio"
+                />
+                <label className="cursor-pointer" htmlFor="rele">
+                  Relevance
+                </label>
+              </li>
+              <li onClick={() => setSort("high-low")} className="flex gap-1">
                 <input id="high" name="sort" type="radio" />
                 <label className="cursor-pointer" htmlFor="high">
                   Price-- High to Low
                 </label>
               </li>
-              <li className="flex gap-1">
+              <li onClick={() => setSort("low-high")} className="flex gap-1">
                 <input id="low" name="sort" type="radio" />
                 <label className="cursor-pointer" htmlFor="low">
                   Price-- Low to High
@@ -96,9 +118,24 @@ function Shop() {
             <li className="font-bold text-xl py-2 border-b-2 border-gray-500">
               Filter by Category
             </li>
+            <li onClick={() => setFilter("All")} className="flex gap-2 ">
+              <input
+                id="all"
+                type="radio"
+                checked={filter === "All"}
+                name="item"
+              />
+              <label className="cursor-pointer" htmlFor="all">
+                All
+              </label>
+            </li>
             {allCategories.map((item, index) => {
               return (
-                <li key={index} className="flex gap-2 ">
+                <li
+                  onClick={() => setFilter(item)}
+                  key={index}
+                  className="flex gap-2 "
+                >
                   <input id={index} type="radio" name="item" />
                   <label className="cursor-pointer" htmlFor={index}>
                     {item}
