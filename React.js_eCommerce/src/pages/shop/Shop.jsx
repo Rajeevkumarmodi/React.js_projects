@@ -47,7 +47,6 @@ function Shop() {
 
   async function fetchAllProducts() {
     const res = await allProducts(skip, filter);
-    console.log(res);
     setTotalPage(Array(Math.ceil(res.total / 12)).fill(null));
     if (sort === "Relevance") {
       setAllProductsData(res.products);
@@ -156,6 +155,8 @@ function Shop() {
                     title={product.title}
                     discountPercentage={product.discountPercentage}
                     thumbnail={product.thumbnail}
+                    id={product.id}
+                    category={product.category}
                   />
                 </div>
               );

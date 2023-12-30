@@ -28,6 +28,7 @@ function Header() {
   const [isOpenSmallManu, setIsOpenSmallManu] = useState(false);
   const [isCategoryManuOpen, setIsCategoryManuOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState("All");
+  const [searchData, setSearchData] = useState("");
 
   function handelLogout() {
     toast.error(`${isLogin.name} is Logout`);
@@ -167,12 +168,17 @@ function Header() {
           </div>
           <div className="z-0 flex items-center relative">
             <input
+              onChange={(e) => setSearchData(e.target.value)}
+              value={searchData}
               className="border-2 border-gray-400 border-r-0 rounded-l-lg outline-none px-2  "
               type="text"
             />
-            <div className=" z-0 bg-blue-600 p-[6px] rounded-r-lg ">
+            <Link
+              to={`/products/search/${searchData}`}
+              className=" z-0 bg-blue-600 p-[6px] rounded-r-lg "
+            >
               <FaSearch className="text-white cursor-pointer" />
-            </div>
+            </Link>
           </div>
         </div>
       </div>

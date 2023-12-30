@@ -12,6 +12,8 @@ import OrderSuccess from "./pages/orderSuccess/OrderSuccess";
 import MyOrders from "./pages/myOrders/MyOrders";
 import Profile from "./pages/profile/Profile";
 import Shop from "./pages/shop/Shop";
+import Category from "./pages/category/Category";
+import SearchableProduct from "./pages/searchableProduct/SearchableProduct";
 function App() {
   return (
     <div>
@@ -19,11 +21,16 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/product/:id" element={<SingleProductPage />} />
+          <Route exact path="/product/:id" element={<SingleProductPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/shop" element={<Shop />} />
+          <Route exact path="/products/:category" element={<Category />} />
+          <Route
+            path="/products/search/:productName"
+            element={<SearchableProduct />}
+          />
           <Route path="/order-success" element={<OrderSuccess />} />
           <Route
             path="/myorder"

@@ -1,15 +1,50 @@
 import React from "react";
-import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { FaCartPlus, FaStar } from "react-icons/fa";
 import { IoIosStarHalf } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartSlice";
+import toast, { Toaster } from "react-hot-toast";
 
-function ProductCard({ title, price, discountPercentage, rating, thumbnail }) {
+function ProductCard({
+  title,
+  price,
+  discountPercentage,
+  rating,
+  thumbnail,
+  id,
+  category,
+}) {
+  const dispatch = useDispatch();
+  function handelAddToCart(
+    id,
+    title,
+    price,
+    rating,
+    discountPercentage,
+    thumbnail,
+    category
+  ) {
+    dispatch(
+      addToCart({
+        id,
+        title,
+        price,
+        discountPercentage,
+        rating,
+        category,
+        thumbnail,
+        quentity: 1,
+      })
+    );
+    toast.success(title + " is added");
+  }
+
   return (
     <div className="flex w-[300px]  flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
       <Link
+        to={`/product/${id}`}
         className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
-        href="#"
       >
         <img
           className=" hover:scale-105 duration-500"
@@ -44,11 +79,25 @@ function ProductCard({ title, price, discountPercentage, rating, thumbnail }) {
             </span>
           </div>
         </div>
-        <button className=" w-full flex gap-1 items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700">
+        <button
+          onClick={() =>
+            handelAddToCart(
+              id,
+              title,
+              price,
+              rating,
+              discountPercentage,
+              thumbnail,
+              category
+            )
+          }
+          className=" w-full flex gap-1 items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700"
+        >
           <FaCartPlus className="text-xl" />
           Add to cart
         </button>
       </div>
+      <Toaster />
     </div>
   );
 }

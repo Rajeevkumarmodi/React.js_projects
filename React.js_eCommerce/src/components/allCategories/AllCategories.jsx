@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchCategories } from "../../API/api";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import "./allCategories.css";
+import { Link } from "react-router-dom";
 
 function AllCategories({
   setIsCategoryManuOpen,
@@ -14,7 +15,6 @@ function AllCategories({
   useEffect(() => {
     (async function () {
       let data = await fetchCategories();
-      data = data.map((data) => data.replace("-", " "));
       setCategoriesData(data);
     })();
   }, []);
@@ -47,13 +47,14 @@ function AllCategories({
             {categoriesData &&
               categoriesData.map((item, index) => {
                 return (
-                  <li
+                  <Link
+                    to={`/products/${item}`}
                     onClick={() => handelClick(item)}
                     className="font-bold cursor-pointer hover:text-orange-500"
                     key={index}
                   >
                     {item}
-                  </li>
+                  </Link>
                 );
               })}
           </ul>
