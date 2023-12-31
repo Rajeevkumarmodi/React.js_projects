@@ -6,6 +6,7 @@
 }
 
 .card img {
+    height: 200px;
     width: 100%;
     border-radius: 10px;
 }
@@ -14,10 +15,6 @@
     padding-block: 10px;
 }
 
-.content>div {
-    display: flex;
-    gap: 10px;
-}
 
 .content p {
     font-weight: bold;

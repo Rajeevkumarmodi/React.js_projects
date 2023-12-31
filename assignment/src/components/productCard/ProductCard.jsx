@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./productCard.css";
+import { myContex } from "../../App";
 
-function ProductCard() {
+function ProductCard({ title, price, discountPercentage, thumbnail }) {
+  const { cart, setCart } = useContext(myContex);
+  function handelAddToCart() {
+    setCart([...cart, { title, price, discountPercentage, thumbnail }]);
+  }
+
   return (
     <div className="card">
-      <img src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="" />
+      <img src={thumbnail} alt="" />
       <div className="content">
-        <h3>I phone 9</h3>
-        <div>
-          <p>$400</p>
-          <p>
-            <del>$600</del>
-          </p>
-        </div>
-        <button>Add to cart</button>
+        <h3>{title}</h3>
+        <p>${price}</p>
+        <button onClick={handelAddToCart}>Add to cart</button>
       </div>
     </div>
   );
