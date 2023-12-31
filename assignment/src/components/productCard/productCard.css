@@ -1,0 +1,35 @@
+.card {
+    width: 250px;
+    padding: 5px;
+    box-shadow: 0px 0px 3px 3px rgb(221, 221, 221);
+    border-radius: 10px;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.content {
+    padding-block: 10px;
+}
+
+.content>div {
+    display: flex;
+    gap: 10px;
+}
+
+.content p {
+    font-weight: bold;
+    padding-block: 5px;
+}
+
+.content button {
+    padding-block: 5px;
+    padding-inline: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #2537d8;
+    color: white;
+    font-weight: 600;
+}
