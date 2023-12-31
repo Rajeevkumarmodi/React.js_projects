@@ -1,0 +1,16 @@
+.header {
+    padding-inline: 60px;
+    height: 50px;
+    width: 100%;
+    box-shadow: 0px 0px 2px 3px gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .links {
+    display: flex;
+    gap: 30px;
+    text-decoration: none;
+    font-size: 20px;
+}
