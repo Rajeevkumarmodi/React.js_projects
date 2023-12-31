@@ -14,6 +14,7 @@ import Profile from "./pages/profile/Profile";
 import Shop from "./pages/shop/Shop";
 import Category from "./pages/category/Category";
 import SearchableProduct from "./pages/searchableProduct/SearchableProduct";
+import PageNotFound from "./pages/pageNotFound/PageNotFound";
 function App() {
   return (
     <div>
@@ -28,6 +29,7 @@ function App() {
           <Route path="/shop" element={<Shop />} />
           <Route exact path="/products/:category" element={<Category />} />
           <Route
+            exact
             path="/products/search/:productName"
             element={<SearchableProduct />}
           />
@@ -48,6 +50,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route path="/*" element={<PageNotFound />} />
         </Routes>
         <Footer />
       </BrowserRouter>
