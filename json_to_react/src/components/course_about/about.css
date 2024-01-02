@@ -1,0 +1,12 @@
+.about_course {
+    width: 60%;
+}
+
+.about_course h3 {
+    padding-block: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.about_course p {
+    padding-block: 10px;
+}

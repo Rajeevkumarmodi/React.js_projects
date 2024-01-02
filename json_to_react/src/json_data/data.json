@@ -11,7 +11,7 @@
   "course": {
     "title": "Learn key life lessons from the Gita: Mind control and conflict resolution",
     "fee": {
-      "amount": 5000,
+      "amount": "5,000",
       "currency": "INR"
     },
     "inclusions": {
