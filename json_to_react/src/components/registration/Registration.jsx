@@ -3,13 +3,13 @@ import "./registration.css";
 import { MdOutlineCurrencyRupee, MdOndemandVideo } from "react-icons/md";
 import { FaRegComments, FaIndianRupeeSign } from "react-icons/fa6";
 
-function Registration() {
+function Registration({ fee }) {
   return (
     <div className="registration">
       <h3>Course fees</h3>
       <h2 className="fee">
         <FaIndianRupeeSign />
-        <h2>5,000</h2>
+        <h2>{fee}</h2>
       </h2>
       <h3>What`s included:</h3>
       <div>
