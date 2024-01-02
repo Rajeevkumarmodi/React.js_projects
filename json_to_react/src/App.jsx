@@ -5,6 +5,8 @@ import Hero from "./components/hero_section/Hero";
 import About from "./components/course_about/About";
 import "./App.css";
 import Registration from "./components/registration/Registration";
+import CourseExpect from "./components/coruse_expect/CourseExpect";
+import AboutInstructor from "./components/about_instructor/AboutInstructor";
 function App() {
   return (
     <div>
@@ -18,8 +20,14 @@ function App() {
           </ul>
         </div>
         <div className="content">
-          <About />
+          <div>
+            <About />
+            <CourseExpect />
+          </div>
           <Registration />
+        </div>
+        <div>
+          <AboutInstructor />
         </div>
       </div>
     </div>

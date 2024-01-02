@@ -21,5 +21,7 @@ li {
 
 .content {
     display: flex;
-    gap: 40px;
+    align-items: start;
+    gap: 0px;
+    width: 100%;
 }

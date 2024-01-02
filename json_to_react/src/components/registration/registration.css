@@ -1,7 +1,7 @@
 .registration {
     background-color: rgb(216, 222, 221);
     padding: 20px;
-    width: 400px;
+    min-width: 400px;
     position: relative;
     top: -80px;
 }
