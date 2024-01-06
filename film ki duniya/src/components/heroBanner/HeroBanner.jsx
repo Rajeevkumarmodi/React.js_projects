@@ -15,13 +15,16 @@ function HeroBanner() {
       url?.backdrop +
       data?.results[Math.floor(Math.random() * 20)].backdrop_path;
 
-    console.log(bg);
     setBackground(bg);
   }, [data]);
 
   //=====================   handel search==========================
   function handelSearch(event) {
-    if (event.key === "Enter" && query.length > 0) {
+    if (
+      (event.key === "Enter" && query.length > 0) ||
+      (event === "submit" && query.length > 0)
+    ) {
+      setQuery("");
       navigate(`/search/${query}`);
     }
   }
@@ -42,13 +45,16 @@ function HeroBanner() {
         </div>
         <div className="relative">
           <input
-            className="w-[90vw] py-2 rounded-full pl-4"
+            className="w-[90vw] py-2 rounded-full pl-4 text-black focus:outline-none"
             type="text"
             placeholder="Search for a movie | tv show..."
             onChange={(e) => setQuery(e.target.value)}
             onKeyUp={handelSearch}
           />
-          <button className="absolute right-0 bg-teal-500 px-6 py-2 rounded-full">
+          <button
+            onClick={() => handelSearch("submit")}
+            className="absolute right-0 bg-teal-500 px-6 py-2 rounded-full"
+          >
             Search
           </button>
         </div>
