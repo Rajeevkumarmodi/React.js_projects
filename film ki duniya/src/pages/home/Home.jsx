@@ -3,7 +3,7 @@ import HeroBanner from "../../components/heroBanner/HeroBanner";
 
 function Home() {
   return (
-    <div>
+    <div className="h-[1000px]">
       <HeroBanner />
     </div>
   );

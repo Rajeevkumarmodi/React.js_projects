@@ -27,29 +27,31 @@ function HeroBanner() {
   }
 
   return (
-    <div
-      className="md:h-[400px] h-[350px] bg-cover bg-center relative flex flex-col gap-3 items-center justify-center"
-      style={{
-        backgroundImage: `url(${background})`,
-      }}
-    >
-      <div>
-        <h2 className="font-bold text-5xl pb-3">Welcome.</h2>
-        <p className="font-bold md:text-3xl text-xl">
-          Millions of movies, TV shows and people to discover. Explore now.
-        </p>
-      </div>
-      <div className="relative">
-        <input
-          className="w-[90vw] py-2 rounded-full pl-4"
-          type="text"
-          placeholder="Search for a movie | tv show..."
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyUp={handelSearch}
-        />
-        <button className="absolute right-0 bg-teal-500 px-6 py-2 rounded-full">
-          Search
-        </button>
+    <div>
+      <div
+        className="  md:h-[400px] h-[350px] bg-cover bg-center relative flex flex-col gap-3 items-center justify-center"
+        style={{
+          backgroundImage: `url(${background})`,
+        }}
+      >
+        <div className="flex flex-col items-center">
+          <h2 className="font-bold text-5xl pb-3">Welcome.</h2>
+          <p className="font-bold md:text-3xl text-xl">
+            Millions of movies, TV shows and people to discover. Explore now.
+          </p>
+        </div>
+        <div className="relative">
+          <input
+            className="w-[90vw] py-2 rounded-full pl-4"
+            type="text"
+            placeholder="Search for a movie | tv show..."
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyUp={handelSearch}
+          />
+          <button className="absolute right-0 bg-teal-500 px-6 py-2 rounded-full">
+            Search
+          </button>
+        </div>
       </div>
     </div>
   );
