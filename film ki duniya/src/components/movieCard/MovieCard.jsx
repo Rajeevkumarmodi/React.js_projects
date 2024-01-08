@@ -5,13 +5,12 @@ import dayjs from "dayjs";
 
 function MovieCard({ poster, title, date, rating }) {
   const value = rating.toFixed(1);
-  // const ;
   return (
-    <div className="bg-[#212021] w-[200px] h-[300px]  p-2 rounded-lg">
+    <div className="bg-[#212021] md:w-[210px] md:h-[300px] h-[320px] w-[250px]  p-2 rounded-lg">
       <div className="relative">
         <div>
           <img
-            className="h-[220px] rounded-lg cursor-pointer"
+            className="md:h-[220px] h-[250px] rounded-lg cursor-pointer"
             src={poster}
             alt={title}
           />

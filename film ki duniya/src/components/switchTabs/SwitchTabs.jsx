@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 
-function SwitchTabs() {
-  const [activeTab, setActiveTab] = useState("Day");
-  const tabs = ["Day", "Wieek"];
+function SwitchTabs({ tabs, activeTab, setActiveTab }) {
   return (
     <div className="flex w-[200px] bg-white text-black font-bold border-2 rounded-full">
-      {tabs.map((item, index) => {
+      {tabs?.map((item, index) => {
         return (
           <div
             onClick={() => setActiveTab(item)}
