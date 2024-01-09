@@ -15,7 +15,7 @@ function MovieCard({ poster, title, date, rating }) {
             alt={title}
           />
           <p className="absolute bottom-3 left-1 text-black bg-gray-400 bg-opacity-30 font-semibold">
-            {title.length > 20 ? title.slice(0, 20) + "..." : title}
+            {title?.length > 20 ? title?.slice(0, 20) + "..." : title}
           </p>
         </div>
         <div className="w-[30px] absolute bottom-[-12px] bg-black rounded-full right-4">
@@ -37,7 +37,7 @@ function MovieCard({ poster, title, date, rating }) {
       <div className="mt-3">
         <p className="font-bold">
           {" "}
-          {title.length > 20 ? title.slice(0, 20) + "..." : title}
+          {title?.length > 20 ? title?.slice(0, 20) + "..." : title}
         </p>
         <p>{dayjs(date).format("DD-MM-YYYY")}</p>
       </div>
