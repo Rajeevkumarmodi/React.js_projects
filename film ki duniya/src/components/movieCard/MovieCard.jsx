@@ -10,7 +10,7 @@ function MovieCard({ poster, title, date, rating }) {
       <div className="relative">
         <div>
           <img
-            className="md:h-[220px] h-[250px] rounded-lg cursor-pointer"
+            className="md:h-[220px] h-[250px] w-full rounded-lg cursor-pointer"
             src={poster}
             alt={title}
           />

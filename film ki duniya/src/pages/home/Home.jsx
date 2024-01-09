@@ -6,6 +6,7 @@ import Caroudel from "../../components/carousel/Carousel";
 import Trending from "../../components/trending/Trending";
 import Skeleton from "../../components/skeleton/Skeleton";
 import Popular from "../../components/popular/Popular";
+import TopRated from "../../components/topRated/TopRated";
 
 function Home() {
   return (
@@ -13,6 +14,7 @@ function Home() {
       <HeroBanner />
       <Trending />
       <Popular />
+      <TopRated />
     </div>
   );
 }

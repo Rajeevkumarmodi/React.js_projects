@@ -7,7 +7,6 @@ import "./carousel.css";
 import Skeleton from "../skeleton/Skeleton";
 
 function Carousel({ url }) {
-  const ref = useRef();
   const baseUrl = useSelector((state) => state.home.url.backdrop);
   const { data, loading } = useApiFetch(url);
   const [current, setCurrent] = useState(0);
@@ -46,9 +45,9 @@ function Carousel({ url }) {
               return (
                 <div onScroll={scroll} key={movie.id}>
                   <MovieCard
-                    poster={baseUrl + movie.backdrop_path}
+                    poster={baseUrl + movie.poster_path}
                     date={movie.release_date}
-                    title={movie.title}
+                    title={movie.title ? movie.title : movie.name}
                     rating={movie.vote_average}
                   />
                 </div>
