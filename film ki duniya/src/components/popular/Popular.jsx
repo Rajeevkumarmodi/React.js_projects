@@ -16,7 +16,10 @@ function Popular() {
           setActiveTab={setActiveTab}
         />
       </div>
-      <Carousel url={`/${activeTab === "Movies" ? "movie" : "tv"}/popular`} />
+      <Carousel
+        activeTab={activeTab}
+        url={`/${activeTab === "Movies" ? "movie" : "tv"}/popular`}
+      />
     </div>
   );
 }

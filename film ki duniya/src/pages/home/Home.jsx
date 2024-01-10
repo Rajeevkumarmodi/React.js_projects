@@ -10,7 +10,7 @@ import TopRated from "../../components/topRated/TopRated";
 
 function Home() {
   return (
-    <div className="h-[1000px]">
+    <div className="">
       <HeroBanner />
       <Trending />
       <Popular />

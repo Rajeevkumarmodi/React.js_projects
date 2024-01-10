@@ -16,7 +16,10 @@ function TopRated() {
           setActiveTab={setActiveTab}
         />
       </div>
-      <Carousel url={`/${activeTab === "Movies" ? "movie" : "tv"}/top_rated`} />
+      <Carousel
+        activeTab={activeTab}
+        url={`/${activeTab === "Movies" ? "movie" : "tv"}/top_rated`}
+      />
     </div>
   );
 }

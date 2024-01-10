@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Header() {
   const navigate = useNavigate();
   const [isOpenManu, setIsOpenManu] = useState(false);
-  const [isOpenSearch, setIsOpenSearch] = useState(true);
+  const [isOpenSearch, setIsOpenSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   function handelSearch(event) {

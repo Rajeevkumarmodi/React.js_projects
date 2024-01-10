@@ -5,11 +5,13 @@ import Home from "./pages/home/Home";
 import SearchResult from "./pages/searchResult/SearchResult";
 import Header from "./components/header/Header";
 import { useDispatch } from "react-redux";
-import { getApiConfigutation } from "./redux/homeSlice";
+import { getApiConfigutation, getGenres } from "./redux/homeSlice";
+import Footer from "./components/footer/Footer";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     fetchData();
+    genres();
   }, []);
 
   async function fetchData() {
@@ -24,6 +26,26 @@ function App() {
     });
   }
 
+  // fetch genres
+
+  async function genres() {
+    let promises = [];
+    let endPoints = ["tv", "movie"];
+    let allGenres = {};
+
+    endPoints.forEach((url) => {
+      promises.push(fetchDataFromApi(`/genre/${url}/list`));
+    });
+
+    const data = await Promise.all(promises);
+
+    data.map(({ genres }) => {
+      return genres.map((item) => (allGenres[item.id] = item));
+    });
+
+    dispatch(getGenres(allGenres));
+  }
+
   return (
     <div className="text-gray-200">
       <BrowserRouter>
@@ -32,6 +54,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/search/:query" element={<SearchResult />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

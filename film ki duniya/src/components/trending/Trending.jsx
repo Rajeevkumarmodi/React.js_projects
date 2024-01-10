@@ -16,7 +16,7 @@ function Trending() {
           setActiveTab={setActiveTab}
         />
       </div>
-      <Carousel url={`/trending/tv/${activeTab.toLocaleLowerCase()}`} />
+      <Carousel url={`/trending/movie/${activeTab.toLocaleLowerCase()}`} />
     </div>
   );
 }
