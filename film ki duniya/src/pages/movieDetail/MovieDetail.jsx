@@ -8,11 +8,18 @@ function MovieDetail() {
   const { mediaType, id } = useParams();
 
   const { data, loading } = useApiFetch(`/${mediaType}/${id}`);
+  const { data: creditData, loading: creditLoading } = useApiFetch(
+    `/${mediaType}/${id}/credits`
+  );
 
-  console.log(data);
+  // console.log(creditData);
   return (
     <div>
-      {loading ? <BannerSkeleton /> : <MovieDetailBanner data={data && data} />}
+      {loading ? (
+        <BannerSkeleton />
+      ) : (
+        <MovieDetailBanner data={data && data} credit={creditData?.crew} />
+      )}
     </div>
   );
 }
