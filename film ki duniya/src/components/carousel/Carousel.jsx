@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import "./carousel.css";
 import Skeleton from "../skeleton/Skeleton";
+import noPoster from "../../assets/no-poster.png";
 
 function Carousel({ url, activeTab }) {
   const baseUrl = useSelector((state) => state.home.url.backdrop);
@@ -12,41 +13,18 @@ function Carousel({ url, activeTab }) {
   const [current, setCurrent] = useState(0);
   const demo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  console.log(data);
-  function handelScroll(value) {
-    if (value === "left") {
-      setCurrent(current + 100);
-    } else {
-      setCurrent(current - 100);
-    }
-  }
-
   return (
-    <div className="carousel relative md:overflow-hidden overflow-x-auto">
-      <div className="md:flex hidden z-50">
-        <FaArrowCircleLeft
-          onClick={() => handelScroll("left")}
-          className={`z-30 absolute ${
-            current >= 300 ? "hidden" : "block"
-          } left-0 top-[100px] text-3xl text-yellow-500 cursor-pointer`}
-        />
-        <FaArrowCircleRight
-          onClick={() => handelScroll("rigth")}
-          className={`${
-            current <= 0 ? "hidden" : "block"
-          } z-30 absolute right-0 top-[100px] text-3xl text-yellow-500 cursor-pointer`}
-        />
-      </div>
-      <div
-        className=" flex gap-5 duration-500 "
-        style={{ transform: `translateX(-${current}%)` }}
-      >
+    <div className="carousel relative overflow-x-auto">
+      <div className=" flex gap-5 duration-500 ">
         {data
           ? data.results?.map((movie) => {
+              const poster = movie?.poster_path
+                ? baseUrl + movie?.poster_path
+                : noPoster;
               return (
-                <div onScroll={scroll} key={movie.id}>
+                <div key={movie.id}>
                   <MovieCard
-                    poster={baseUrl + movie.poster_path}
+                    poster={poster}
                     date={movie.release_date || movie.first_air_date}
                     title={movie.title ? movie.title : movie.name}
                     rating={movie.vote_average}

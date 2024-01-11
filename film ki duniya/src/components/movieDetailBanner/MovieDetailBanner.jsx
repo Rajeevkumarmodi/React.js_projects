@@ -5,7 +5,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { FaRegPlayCircle } from "react-icons/fa";
 import dayjs from "dayjs";
 
-function MovieDetailBanner({ data, credit }) {
+function MovieDetailBanner({ data, credit, mediaType }) {
   const { url } = useSelector((state) => state.home);
   const value = data?.vote_average.toFixed(1);
 
@@ -44,7 +44,8 @@ function MovieDetailBanner({ data, credit }) {
         <div className="w-[60vw]">
           <div>
             <h3 className="font-bold text-4xl">
-              {data?.title}({dayjs(data?.release_date).format("YYYY")})
+              {data?.title || data?.name}(
+              {dayjs(data?.release_date || data?.last_air_date).format("YYYY")})
             </h3>
             <p className="text-gray-400 pt-2 italic">{data?.tagline}</p>
             <div className="flex gap-4 py-4">
@@ -90,9 +91,17 @@ function MovieDetailBanner({ data, credit }) {
           <div className="flex my-3 pt-1 gap-3 border-t-2 border-gray-600">
             <p>Status : {data?.status}</p>
             <p>
-              Release Date : {dayjs(data?.release_date).format("MMM D ,YYYY")}
+              Release Date :{" "}
+              {dayjs(data?.release_date || data?.first_air_date).format(
+                "MMM D ,YYYY"
+              )}
             </p>
-            <p>Duration : {toHoursAndMinutes(data?.runtime)} </p>
+            <p>
+              {mediaType === "tv" ? "Total Episodes " : "Durations"} :{" "}
+              {mediaType === "tv"
+                ? data?.number_of_episodes
+                : toHoursAndMinutes(data?.runtime)}
+            </p>
           </div>
 
           <div className="flex  gap-4 border-t-2 border-gray-500 pt-1 my-2">

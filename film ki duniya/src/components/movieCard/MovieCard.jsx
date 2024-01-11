@@ -20,7 +20,7 @@ function MovieCard({ poster, title, date, rating, genre_ids, id, mediaType }) {
           <img
             onClick={handelNavigate}
             className="md:h-[220px] h-[250px] w-full rounded-lg cursor-pointer"
-            src={poster}
+            src={poster ? poster : noPoster}
             alt={title}
           />
           <div className="absolute bottom-3">
