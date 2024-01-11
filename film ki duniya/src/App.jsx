@@ -7,6 +7,7 @@ import Header from "./components/header/Header";
 import { useDispatch } from "react-redux";
 import { getApiConfigutation, getGenres } from "./redux/homeSlice";
 import Footer from "./components/footer/Footer";
+import MovieDetail from "./pages/movieDetail/MovieDetail";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -53,6 +54,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search/:query" element={<SearchResult />} />
+          <Route path="/:mediaType/:id" element={<MovieDetail />} />
         </Routes>
         <Footer />
       </BrowserRouter>
