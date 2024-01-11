@@ -9,10 +9,12 @@ function MovieDetailBanner({ data, credit }) {
   const { url } = useSelector((state) => state.home);
   const value = data?.vote_average.toFixed(1);
 
-  const director = credit?.filter((f) => f.job === "Director");
-  const writer = credit?.filter(
-    (f) => f.job === "Screenplay" || f.job === "Story" || f.job === "Writer"
-  );
+  const director = credit && credit?.filter((f) => f.job === "Director");
+  const writer =
+    credit &&
+    credit?.filter(
+      (f) => f.job === "Screenplay" || f.job === "Story" || f.job === "Writer"
+    );
 
   const toHoursAndMinutes = (totalMinutes) => {
     const hours = Math.floor(totalMinutes / 60);
@@ -26,7 +28,7 @@ function MovieDetailBanner({ data, credit }) {
         {/* background image */}
         <div className="absolute top-0 left-0 opacity-5 ">
           <img
-            className="w-[100vw] h-[100vh]"
+            className="w-[100vw] h-[80vh]"
             src={url?.poster + data?.backdrop_path}
             alt=""
           />
