@@ -5,11 +5,13 @@ function Genres({ ids }) {
   const { genres } = useSelector((state) => state.home);
   return (
     <div className="flex gap-3 items-center">
-      {ids?.map((g) => {
+      {ids?.map((g, i) => {
         if (!genres[g]?.name) return;
 
         return (
-          <p className="bg-red-400 bg-opacity-70 text-xs">{genres[g]?.name}</p>
+          <p key={i} className="bg-red-400 bg-opacity-70 text-xs">
+            {genres[g]?.name}
+          </p>
         );
       })}
     </div>

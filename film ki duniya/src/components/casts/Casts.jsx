@@ -9,7 +9,7 @@ function Casts({ casts, creditLoading }) {
   const demoData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   return (
     <div className="pt-4 max-w-[1280px] m-auto md:mx-[80px] mx-[10px]">
-      <h2 className="font-bold text-xl">Top Cast</h2>
+      {casts && <h2 className="font-bold text-xl">Top Cast</h2>}
       {!casts ? (
         <div className=" allCasts overflow-auto mb-[50px] flex gap-5 mt-4 h-[200px]">
           {demoData.map((data, index) => {
@@ -29,9 +29,9 @@ function Casts({ casts, creditLoading }) {
 
             return (
               <div key={cast?.id} className=" flex flex-col items-center  ">
-                <div className="w-[150px]">
+                <div className="md:w-[150px] w-[100px]">
                   <img
-                    className="h-[150px] w-[100vw] rounded-full"
+                    className="md:h-[150px] h-[100px] w-[100vw] rounded-full"
                     src={imgUrl}
                     alt={cast?.name}
                   />

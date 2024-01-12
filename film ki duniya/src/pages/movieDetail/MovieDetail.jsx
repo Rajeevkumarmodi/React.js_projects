@@ -5,6 +5,7 @@ import MovieDetailBanner from "../../components/movieDetailBanner/MovieDetailBan
 import BannerSkeleton from "../../components/bannerSkeleton/bannerSkeleton";
 import Casts from "../../components/casts/Casts";
 import Similar from "../../components/similar/Similar";
+import Recommendation from "../../components/recommendation/Recommendation";
 
 function MovieDetail() {
   const { mediaType, id } = useParams();
@@ -14,8 +15,6 @@ function MovieDetail() {
   const { data: creditData, loading: creditLoading } = useApiFetch(
     `/${mediaType}/${id}/credits`
   );
-
-  console.log(creditData);
   return (
     <div>
       {loading ? (
@@ -29,6 +28,7 @@ function MovieDetail() {
       )}
       <Casts casts={creditData?.cast} creditLoading={creditLoading} />
       <Similar mediaType={mediaType} id={id} />
+      <Recommendation mediaType={mediaType} id={id} />
     </div>
   );
 }

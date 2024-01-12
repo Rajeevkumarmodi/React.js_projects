@@ -24,7 +24,7 @@ function MovieDetailBanner({ data, credit, mediaType }) {
 
   return (
     <div className="  bg-gray-900 ">
-      <div className="pt-4 max-w-[1280px] m-auto md:mx-[80px] mx-[10px] flex items-center gap-7">
+      <div className="pt-4 max-w-[1280px] m-auto md:mx-[80px] mx-[10px] flex md:flex-row flex-col items-center gap-7">
         {/* background image */}
         <div className="absolute top-0 left-0 opacity-5 ">
           <img
@@ -36,12 +36,12 @@ function MovieDetailBanner({ data, credit, mediaType }) {
 
         <div className="">
           <img
-            className="h-[400px] w-[30vw]"
+            className="md:h-[400px] md:w-[30vw]"
             src={url?.poster + data?.poster_path}
             alt=""
           />
         </div>
-        <div className="w-[60vw]">
+        <div className="md:w-[60vw]">
           <div>
             <h3 className="font-bold text-4xl">
               {data?.title || data?.name}(
