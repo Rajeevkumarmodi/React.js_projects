@@ -45,6 +45,7 @@ function Header() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-[300px] rounded-xl px-3 py-1 focus:outline-none text-black"
                 type="text"
+                value={searchQuery}
                 onKeyUp={handelSearch}
                 placeholder="Search fro movie / tv show"
               />

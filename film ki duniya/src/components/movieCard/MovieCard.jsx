@@ -14,13 +14,13 @@ function MovieCard({ poster, title, date, rating, genre_ids, id, mediaType }) {
 
   const value = rating.toFixed(1);
   return (
-    <div className="bg-[#212021] md:w-[210px] md:h-[300px] h-[320px] w-[250px]  p-2 rounded-lg">
+    <div className="bg-[#212021] w-[210px] h-[300px]  p-2 rounded-lg">
       <div className="relative">
         <div>
           <img
             onClick={handelNavigate}
-            className="md:h-[220px] h-[250px] w-full rounded-lg cursor-pointer"
-            src={poster ? poster : noPoster}
+            className="h-[220px] w-full rounded-lg cursor-pointer"
+            src={poster}
             alt={title}
           />
           <div className="absolute bottom-3">
