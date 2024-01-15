@@ -8,22 +8,36 @@ import noPoster from "../../assets/no-poster.png";
 import MovieCard from "../../components/movieCard/MovieCard";
 
 function Explore() {
+  const { genres } = useSelector((state) => state.home);
   const baseUrl = useSelector((state) => state.home.url.backdrop);
   const { mediatype } = useParams();
   const [loading, setLoading] = useState(false);
   const [pageNum, setPageNum] = useState(1);
   const [data, setData] = useState([]);
+  const [filter, setFilter] = useState({ with_genres: "All" });
+  let allGenres = [];
+  for (let g in genres) {
+    allGenres = [...allGenres, genres[g]];
+  }
 
   async function fetchInitialData() {
     setLoading(true);
-    const res = await searchAPI(`/discover/${mediatype}?page=${pageNum}`);
+    const res = await searchAPI(
+      `/discover/${mediatype}?page=${pageNum}`,
+      filter.with_genres !== "All" && filter
+    );
     setData(res);
     setPageNum((prev) => prev + 1);
     setLoading(false);
+    // console.log(res);
   }
 
+  console.log(filter);
   async function fetchNextData() {
-    searchAPI(`/discover/${mediatype}?page=${pageNum}`).then((res) => {
+    searchAPI(
+      `/discover/${mediatype}?page=${pageNum}`,
+      filter.with_genres !== "All" && filter
+    ).then((res) => {
       if (data?.results) {
         setData({ ...data, results: [...data?.results, ...res.results] });
       } else {
@@ -35,14 +49,36 @@ function Explore() {
   }
 
   useEffect(() => {
+    setPageNum(1);
     fetchInitialData();
-  }, [mediatype]);
+  }, [mediatype, filter]);
 
   return (
     <div className="md:mx-[80px] mx-[10px]">
-      <h2 className=" my-2 font-bold">
-        {mediatype === "movie" ? "Explore Movies" : "Explore TV Showes"}{" "}
-      </h2>
+      <div className="flex md:flex-row flex-col md:justify-between items-center">
+        <h2 className=" my-2 font-bold">
+          {mediatype === "movie" ? "Explore Movies" : "Explore TV Showes"}{" "}
+        </h2>
+        <div className="z-10 flex gap-2">
+          <label htmlFor="sort">Sort by genres</label>
+          <select
+            onChange={(e) => setFilter({ with_genres: e.target.value })}
+            className="bg-gray-200 text-black text-center rounded-md focus:outline-none"
+            id="sort"
+          >
+            <option key="#4dfhf" value="All">
+              All
+            </option>
+            {allGenres.map((g) => {
+              return (
+                <option key={g.id} value={g.id}>
+                  {g.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      </div>
       {loading && (
         <div className="w-[90vw] h-[50vh] flex items-center justify-center">
           <Spinner />

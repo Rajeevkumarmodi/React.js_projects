@@ -25,10 +25,14 @@ async function fetchDataFromApi(url, params) {
 
 // serching api
 
-export const searchAPI = async (url) => {
+export const searchAPI = async (url, params) => {
   try {
     const { data } = await axios.get(
-      `${BASE_URL}${url}&api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+      `${BASE_URL}${url}&api_key=${import.meta.env.VITE_TMDB_API_KEY}`,
+      {
+        headers,
+        params,
+      }
     );
     return data;
   } catch (error) {
