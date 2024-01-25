@@ -32,7 +32,6 @@ function Explore() {
     // console.log(res);
   }
 
-  console.log(filter);
   async function fetchNextData() {
     searchAPI(
       `/discover/${mediatype}?page=${pageNum}`,
@@ -47,6 +46,10 @@ function Explore() {
       setPageNum((prev) => prev + 1);
     });
   }
+
+  useEffect(() => {
+    setFilter({ with_genres: "All" });
+  }, [mediatype]);
 
   useEffect(() => {
     setPageNum(1);

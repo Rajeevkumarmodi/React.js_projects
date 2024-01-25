@@ -42,7 +42,7 @@ function Carousel({ url, activeTab }) {
           : demo.map((_, i) => {
               return (
                 <div key={i}>
-                  <Skeleton />{" "}
+                  <Skeleton h={290} />
                 </div>
               );
             })}

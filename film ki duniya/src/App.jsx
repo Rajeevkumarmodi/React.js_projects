@@ -9,6 +9,7 @@ import { getApiConfigutation, getGenres } from "./redux/homeSlice";
 import Footer from "./components/footer/Footer";
 import MovieDetail from "./pages/movieDetail/MovieDetail";
 import Explore from "./pages/explore/Explore";
+import PageNotFound from "./pages/pageNotFound/PageNotFound";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -53,10 +54,11 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search/:query" element={<SearchResult />} />
-          <Route path="/:mediaType/:id" element={<MovieDetail />} />
-          <Route path="/explore/:mediatype" element={<Explore />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/search/:query" element={<SearchResult />} />
+          <Route exact path="/:mediaType/:id" element={<MovieDetail />} />
+          <Route exact path="/explore/:mediatype" element={<Explore />} />
+          <Route path="/*" element={<PageNotFound />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-function Skeleton() {
+function Skeleton({ h }) {
   return (
     <div
       role="status"
-      className="flex items-center justify-center h-[300px] w-[250px] max-w-sm bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700"
+      className={`flex items-center justify-center h-[${h}px] w-[195px] max-w-sm bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700`}
     >
       <svg
         className="w-10 h-10 text-gray-200 dark:text-gray-600"

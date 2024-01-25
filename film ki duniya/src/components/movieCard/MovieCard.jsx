@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import dayjs from "dayjs";
 import Genres from "../genres/Genres";
 import { useNavigate } from "react-router-dom";
+import Skeleton from "../skeleton/Skeleton";
 
 function MovieCard({ poster, title, date, rating, genre_ids, id, mediaType }) {
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState("true");
+  const [image, setImage] = useState(poster);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = image;
+    img.onload = () => {
+      setIsLoading(false);
+    };
+  }, []);
 
   function handelNavigate() {
     navigate(`/${mediaType}/${id}`);
@@ -14,15 +26,22 @@ function MovieCard({ poster, title, date, rating, genre_ids, id, mediaType }) {
 
   const value = rating.toFixed(1);
   return (
-    <div className="bg-[#212021] w-[210px] h-[300px]  p-2 rounded-lg">
+    <div className="bg-[#333233] w-[210px] h-[300px]  p-2 rounded-lg">
       <div className="relative">
         <div>
-          <img
-            onClick={handelNavigate}
-            className="h-[220px] w-full rounded-lg cursor-pointer"
-            src={poster}
-            alt={title}
-          />
+          {isLoading ? (
+            <div className="h-[230px]">
+              <Skeleton h={240} />
+            </div>
+          ) : (
+            <img
+              onLoad={() => setIsLoading(false)}
+              onClick={handelNavigate}
+              className="h-[220px] w-full rounded-lg cursor-pointer"
+              src={poster}
+              alt={title}
+            />
+          )}
           <div className="absolute bottom-3">
             <Genres
               ids={genre_ids.length > 2 ? genre_ids.slice(0, 2) : genre_ids}
@@ -51,7 +70,7 @@ function MovieCard({ poster, title, date, rating, genre_ids, id, mediaType }) {
           className="font-bold hover:underline hover:text-blue-400 cursor-pointer"
         >
           {" "}
-          {title?.length > 20 ? title?.slice(0, 20) + "..." : title}
+          {title?.length > 15 ? title?.slice(0, 15) + "..." : title}
         </p>
         <p>{dayjs(date).format("DD-MM-YYYY")}</p>
       </div>

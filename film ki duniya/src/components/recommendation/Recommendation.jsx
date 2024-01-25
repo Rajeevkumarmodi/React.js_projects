@@ -7,7 +7,7 @@ function Recommendation({ mediaType, id }) {
   return (
     <>
       {data?.results?.length > 0 && (
-        <div className=" md:mx-[80px] my-4">
+        <div className=" md:mx-[80px] my-4 ">
           <h2 className="py-4 font-bold text-2xl">
             Recommendation {mediaType === "movie" ? "Movies" : "TV Shows"}
           </h2>
