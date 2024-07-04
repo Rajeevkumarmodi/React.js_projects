@@ -19,35 +19,29 @@ body {
   display: flex;
   flex-wrap: wrap;
 
-  input {
-    border: none;
-    outline: none;
-    padding: 8px;
-    margin-left: 5px;
-  }
-
-  .search-result {
-    position: absolute;
-    top: 40px;
-    max-height: 350px;
-    width: auto;
-    overflow-y: scroll;
-    padding: 10px;
-    border: 1.5px solid gray;
+  .delected-users {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
 
-    .user {
+    .delected-user {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 5px;
-      border-bottom: 1px solid gray;
+      gap: 5px;
+      background-color: black;
+      color: white;
+      padding: 3px 5px;
+      padding-right: 15px;
+      border-radius: 10px;
+      position: relative;
+      margin-right: 10px;
+      margin-top: 5px;
+      cursor: pointer;
 
-      &:hover {
-        background-color: rgb(212, 211, 211);
-        cursor: pointer;
+      span {
+        position: absolute;
+        top: 0px;
+        right: 2px;
+        font-weight: bold;
       }
 
       img {
@@ -55,4 +49,46 @@ body {
       }
     }
   }
+
+  .input {
+    position: relative;
+
+    input {
+      border: none;
+      outline: none;
+      padding: 8px;
+      margin-left: 5px;
+    }
+
+    .search-result {
+      position: absolute;
+      top: 40px;
+      max-height: 350px;
+      width: auto;
+      overflow-y: scroll;
+      padding: 10px;
+      border: 1.5px solid gray;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 5px;
+        border-bottom: 1px solid gray;
+
+        &:hover {
+          background-color: rgb(212, 211, 211);
+          cursor: pointer;
+        }
+
+        img {
+          width: 20px;
+        }
+      }
+    }
+  }
+
 }
