@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/login_img.png";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { FaEyeSlash, FaEye, FaGoogle } from "react-icons/fa";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebaseConfig/firebase";
@@ -21,6 +21,11 @@ function Login() {
   const [showPassword, setShowPassword] = useState("password");
   const [loading, setLoading] = useState(false);
   const [loaderForGoogle, setLoaderForGoogle] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   async function loginForm(e) {
     e.preventDefault();
@@ -188,7 +193,6 @@ function Login() {
           </form>
         </div>
       </div>
-      <Toaster />
     </div>
   );
 }

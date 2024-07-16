@@ -4,7 +4,7 @@ import { FaCartPlus, FaStar } from "react-icons/fa";
 import { IoIosStarHalf } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 function ProductCard({
   title,
@@ -97,7 +97,6 @@ function ProductCard({
           Add to cart
         </button>
       </div>
-      <Toaster />
     </div>
   );
 }

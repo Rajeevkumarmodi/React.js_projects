@@ -4,10 +4,16 @@ import { useSelector } from "react-redux";
 import { RxAvatar } from "react-icons/rx";
 import { AiOutlineNumber, AiOutlineMail } from "react-icons/ai";
 import avatar from "../../assets/avatar.png";
+import { useLocation } from "react-router-dom";
 
 function Profile() {
   const userData = useSelector((state) => state.allCartData.userInfo);
   const [loader, setLoader] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className="px-3 mt-[50px] w-[100vw] h-[90vh] flex flex-col items-center justify-center">

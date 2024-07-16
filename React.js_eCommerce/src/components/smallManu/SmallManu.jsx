@@ -6,7 +6,7 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { LuLogOut } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../../redux/cartSlice";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 function SmallManu({ setIsOpenSmallManu }) {

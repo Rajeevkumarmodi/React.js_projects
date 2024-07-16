@@ -18,7 +18,7 @@ import { removeUser } from "../../redux/cartSlice";
 import "./header.css";
 import SmallManu from "../smallManu/SmallManu";
 import Mobilemanu from "../mobileManu/Mobilemanu";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 function Header() {
   const dispatch = useDispatch();
@@ -182,7 +182,6 @@ function Header() {
           </div>
         </div>
       </div>
-      <Toaster />
     </div>
   );
 }

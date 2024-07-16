@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../../redux/cartSlice";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { LuLogOut } from "react-icons/lu";
 
 function Mobilemanu({ setIsOpenManu }) {
@@ -46,7 +46,6 @@ function Mobilemanu({ setIsOpenManu }) {
       >
         About
       </NavLink>
-      <Toaster />
     </div>
   );
 }

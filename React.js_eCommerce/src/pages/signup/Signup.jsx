@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import signupImg from "../../assets/signup_img.png";
-import toast, { Toaster } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { auth, db } from "../../firebaseConfig/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -17,6 +17,11 @@ function Signup() {
   });
   const [showPassword, setShowPassword] = useState("password");
   const [loading, setLoading] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   async function signupForm(e) {
     e.preventDefault();
@@ -139,7 +144,6 @@ function Signup() {
           </form>
         </div>
       </div>
-      <Toaster />
     </div>
   );
 }

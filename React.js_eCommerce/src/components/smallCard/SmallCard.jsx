@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { FaCartPlus } from "react-icons/fa";
 
 function SmallCard({ data }) {
@@ -39,28 +39,30 @@ function SmallCard({ data }) {
           return (
             <div
               key={product.id}
-              className="md:w-[200px] w-[280px] bg-gray-200 p-3 rounded-lg hover:shadow-lg duration-300 cursor-pointer shadow-gray-500"
+              className="md:w-[200px] w-[280px] relative bg-gray-200 p-3 rounded-lg hover:shadow-lg duration-300 cursor-pointer shadow-gray-500"
             >
               <Link to={`/product/${product.id}`}>
                 <img
                   className="rounded-lg h-[150px] w-full hover:scale-105 overflow-hidden duration-500"
                   src={product.thumbnail}
-                  alt=""
+                  alt={`${product.title} image`}
                 />
               </Link>
+
+              <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
+                {product.discountPercentage}% OFF
+              </span>
+
               <div className="mt-3 flex gap-2 ">
-                <p className="text-green-600 font-bold rounded-lg">
-                  -{product.discountPercentage}%
-                </p>
-                <p className="text-red-400">
-                  <del>${product.price}</del>
-                </p>
-                <p className="font-semibold text-base ">
+                <p className="font-bold text-base ">
                   $
                   {(
                     product.price -
                     (product.price * product.discountPercentage) / 100
                   ).toFixed(2)}
+                </p>
+                <p className="text-red-400">
+                  <del>${product.price}</del>
                 </p>
               </div>
               <p className="font-bold py-2">
@@ -69,7 +71,7 @@ function SmallCard({ data }) {
                   : product.title}
               </p>
 
-              <div className="text-center pt-2">
+              <div className="text-center flex justify-center pt-2">
                 <button
                   onClick={() =>
                     handelAddToCart(
@@ -91,7 +93,6 @@ function SmallCard({ data }) {
             </div>
           );
         })}
-      <Toaster />
     </>
   );
 }

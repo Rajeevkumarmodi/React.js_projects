@@ -3,7 +3,7 @@ import payment2 from "../../assets/2nd payment-method.png";
 import { FaCreditCard } from "react-icons/fa";
 import { CiLock } from "react-icons/ci";
 import Spinner from "../../components/spinner/Spinner";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { removeAllItems } from "../../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
@@ -163,7 +163,6 @@ function PaymentForm({ totalPrice }) {
           </div>
         </form>
       </div>
-      <Toaster />
     </div>
   );
 }

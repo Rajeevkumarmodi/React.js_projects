@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { categoryProducts } from "../../API/api";
 import Spinner from "../../components/spinner/Spinner";
 import ProductCard from "../../components/productCard/ProductCard";
@@ -10,6 +10,11 @@ function Category() {
   const [allData, setAllData] = useState([]);
   const [loadign, setLoading] = useState(false);
   const [sortSelected, setSortSelected] = useState("Relevance");
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     fetchCategoryProduct();

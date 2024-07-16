@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { IoIosStar, IoIosStarHalf } from "react-icons/io";
 import { FaPlus, FaMinus } from "react-icons/fa";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { singleProduct } from "../../API/api";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import Spinner from "../../components/spinner/Spinner";
 import { FaCartPlus } from "react-icons/fa";
 
@@ -17,10 +17,15 @@ function SingleProductPage() {
   const [singleImage, setSingleImage] = useState("");
   const [initialQuentity, setInitialQuentity] = useState(1);
   const [loding, setLoding] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     fetchSingleProductData();
   }, [id]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   async function fetchSingleProductData() {
     setLoding(true);
@@ -195,7 +200,6 @@ function SingleProductPage() {
           </div>
         </div>
       )}
-      <Toaster />
     </div>
   );
 }

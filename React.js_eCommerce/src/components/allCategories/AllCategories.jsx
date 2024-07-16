@@ -3,6 +3,7 @@ import { fetchCategories } from "../../API/api";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import "./allCategories.css";
 import { Link } from "react-router-dom";
+import { allCategories } from "../../common/common";
 
 function AllCategories({
   setIsCategoryManuOpen,
@@ -13,10 +14,7 @@ function AllCategories({
   const [categoriesData, setCategoriesData] = useState([]);
 
   useEffect(() => {
-    (async function () {
-      let data = await fetchCategories();
-      setCategoriesData(data);
-    })();
+    setCategoriesData(allCategories);
   }, []);
 
   // manu logic
@@ -42,7 +40,7 @@ function AllCategories({
               onClick={() => handelClick("All")}
               className="font-bold hover:text-orange-500"
             >
-              <p>All</p>
+              <Link to={"/shop"}>All</Link>
             </li>
             {categoriesData &&
               categoriesData.map((item, index) => {

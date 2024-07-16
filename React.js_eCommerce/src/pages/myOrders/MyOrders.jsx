@@ -4,13 +4,18 @@ import { db } from "../../firebaseConfig/firebase";
 import { useSelector } from "react-redux";
 import { LuCheckCircle } from "react-icons/lu";
 import { IoBagHandleSharp } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Spinner from "../../components/spinner/Spinner";
 
 function MyOrders() {
   const userInfo = useSelector((state) => state.allCartData.userInfo);
   const [myProductData, setMyProductData] = useState([]);
   const [loader, setLoader] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     fetchOrderData();

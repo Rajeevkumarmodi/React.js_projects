@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaPlus, FaMinus, FaArrowLeftLong } from "react-icons/fa6";
 import { useSelector } from "react-redux";
@@ -11,7 +11,7 @@ import {
 } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import PaymentForm from "../../components/paymentForm/PaymentForm";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ function Cart() {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isOpenPay, setisOpenPay] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     setCartData(data);
@@ -33,6 +34,10 @@ function Cart() {
       );
     }
   }, [data]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   function checkOutHandel() {
     if (!userInfo) {
@@ -162,7 +167,6 @@ function Cart() {
           </div>
         </div>
       </div>
-      <Toaster />
     </div>
   );
 }

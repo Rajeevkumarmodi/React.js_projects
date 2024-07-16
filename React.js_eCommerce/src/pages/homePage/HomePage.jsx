@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "../../components/carousel/Carousel";
 import SmallCard from "../../components/smallCard/SmallCard";
+import { useLocation } from "react-router-dom";
 import {
   topDiscountProducts,
   topRatedProducts,
@@ -10,12 +11,18 @@ function HomePage() {
   const [topRatedProductsData, setTopRatedProductsData] = useState([]);
   const [topDiscountProductsData, setTopDiscountProductsData] = useState([]);
   const [topLaptopsData, setTopLaptopsData] = useState([]);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     fetchTopRatedProductData();
     fetchTopDiscountProductData();
     fetchTopLaptops();
   }, []);
+
+  // Automatically scrolls to top whenever pathname changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   async function fetchTopRatedProductData() {
     const data = await topRatedProducts();

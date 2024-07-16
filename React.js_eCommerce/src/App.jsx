@@ -15,6 +15,7 @@ import Shop from "./pages/shop/Shop";
 import Category from "./pages/category/Category";
 import SearchableProduct from "./pages/searchableProduct/SearchableProduct";
 import PageNotFound from "./pages/pageNotFound/PageNotFound";
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <div>
@@ -24,7 +25,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route exact path="/product/:id" element={<SingleProductPage />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" elemheadeent={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/shop" element={<Shop />} />
           <Route exact path="/products/:category" element={<Category />} />
@@ -54,6 +55,7 @@ function App() {
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
         <Footer />
+        <Toaster />
       </BrowserRouter>
     </div>
   );
