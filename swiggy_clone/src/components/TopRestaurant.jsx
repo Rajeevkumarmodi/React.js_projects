@@ -49,8 +49,8 @@ function TopRestaurant({ restaurantCarousel }) {
   };
 
   return (
-    <div className="mt-10">
-      <h2 className="pb-4 text-2xl font-semibold">
+    <div className="mt-10 pb-12 border-b-[1px] border-gray-400">
+      <h2 className="pb-4 text-2xl font-bold">
         Top restaurant chains in Patna
       </h2>
       <div className="space-x-2">

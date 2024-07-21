@@ -2,8 +2,11 @@ import React from "react";
 import FoodCategories from "../components/FoodCategories";
 import TopRestaurant from "../components/TopRestaurant";
 import useRestaruntData from "../utils/useRestaurantData";
+import RestaurantCard from "../components/RestaurantCard";
+import ButtonList from "../components/ButtonList";
+import { Link } from "react-router-dom";
 function Home() {
-  const { restaurantCarousel, itemCarousel } = useRestaruntData();
+  const { restaurantCarousel, filteredRestaurants } = useRestaruntData();
   console.log("res", restaurantCarousel);
   return (
     <div className="mt-5 md:mx-20 mx-10">
@@ -11,6 +14,35 @@ function Home() {
 
       <FoodCategories />
       <TopRestaurant restaurantCarousel={restaurantCarousel} />
+
+      <div className="my-5">
+        <h1 className="font-bold text-2xl pb-4">
+          Restaurants with online food delivery
+        </h1>
+        <div>
+          <ButtonList />
+        </div>
+        <div
+          className="grid grid-cols-1 mx-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-start gap-8 mt-8"
+          data-testid="res-list"
+        >
+          {/* You have to write logic for NO restraunt fount here */}
+          {filteredRestaurants &&
+            filteredRestaurants.map((restaurant) => {
+              return (
+                <Link
+                  to={"/restaurant/" + restaurant.info.id}
+                  key={restaurant.info.id}
+                  className="pr-4"
+                >
+                  {/* {restaurant.info.id} */}
+                  <RestaurantCard {...restaurant.info} />
+                </Link>
+              );
+            })}
+        </div>
+        <div></div>
+      </div>
     </div>
   );
 }
