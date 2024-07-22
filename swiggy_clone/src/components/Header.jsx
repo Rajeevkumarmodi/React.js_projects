@@ -63,7 +63,10 @@ function Header() {
           </Link>
         </li>
         <li className="md:border-0 border-b-[1px] md:py-0 py-2 md:px-0 px-6">
-          <Link className="flex items-center hover:text-orange-500 gap-2 font-semibold">
+          <Link
+            to="/help"
+            className="flex items-center hover:text-orange-500 gap-2 font-semibold"
+          >
             <MdHelpOutline className="text-xl" /> Help
           </Link>
         </li>
