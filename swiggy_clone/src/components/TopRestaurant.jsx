@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react";
 import RestaurantCard from "./RestaurantCard";
-import Slider from "react-slick";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Link } from "react-router-dom";
 
 function TopRestaurant({ restaurantCarousel }) {
   const [windowWidth, setWindtwWidth] = useState(window.innerWidth);
@@ -19,15 +19,6 @@ function TopRestaurant({ restaurantCarousel }) {
     };
   }, [windowWidth]);
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: windowWidth < 700 ? 2 : 3,
-    slidesToScroll: 1,
-    arrows: true,
-  };
-
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -43,20 +34,18 @@ function TopRestaurant({ restaurantCarousel }) {
       items: 2.5,
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1.5,
+      breakpoint: { max: 500, min: 0 },
+      items: 1.3,
     },
   };
 
   return (
     <div className="mt-10 pb-12 border-b-[1px] border-gray-400">
-      <h2 className="pb-4 text-2xl font-bold">
-        Top restaurant chains in Patna
-      </h2>
-      <div className="space-x-2">
+      <h2 className="text-2xl font-bold">Top restaurant chains in Patna</h2>
+      <div className="">
         <Carousel responsive={responsive}>
           {restaurantCarousel?.map((item) => (
-            <div className="px-6" key={item?.id}>
+            <Link to={`/restaurant/${item?.info.id}`} key={item?.info.id}>
               <RestaurantCard
                 name={item.info.name}
                 avgRating={item.info.avgRating}
@@ -65,7 +54,7 @@ function TopRestaurant({ restaurantCarousel }) {
                 cloudinaryImageId={item.info.cloudinaryImageId}
                 aggregatedDiscountInfoV3={item.info.aggregatedDiscountInfoV3}
               />
-            </div>
+            </Link>
           ))}
         </Carousel>
       </div>

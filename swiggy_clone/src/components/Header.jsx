@@ -43,7 +43,7 @@ function Header() {
       {/* menu */}
 
       <ul
-        className={`flex  md:items-center items-start bg-gray-50 gap-7 duration-200 md:flex-row flex-col md:static fixed top-20 md:w-auto w-[300px] h-full md:shadow-none shadow-md md:p-0 py-6 ${
+        className={`flex  md:items-center items-start bg-gray-50 md:bg-white gap-7 duration-200 md:flex-row flex-col md:static fixed top-20 md:w-auto w-[300px] h-full md:shadow-none shadow-md md:p-0 py-6 ${
           isOpenMenu ? "right-[-320px]" : "right-0"
         }`}
       >

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
 import "../App.css";
 import { FOOD_All_CATEGORY } from "../mocks/data";
 import Carousel from "react-multi-carousel";
