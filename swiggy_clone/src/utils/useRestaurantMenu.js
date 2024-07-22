@@ -18,8 +18,6 @@ const useRestaruntMenu = (resId) => {
       json?.data?.cards[0].card?.card.info ||
       json?.data?.cards[2].card?.card.info;
 
-    console.log("menu data", menuData);
-
     setRestaurantInfo(info);
     setRestaurantMenu(menuData);
   };
