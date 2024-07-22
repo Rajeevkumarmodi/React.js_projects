@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import Restaurant from "./pages/Restaurant";
 import Footer from "./components/Footer";
 import Help from "./pages/Help";
+import Offer from "./pages/Offer";
+import Search from "./pages/Search";
 function App() {
   return (
     <BrowserRouter>
@@ -13,6 +15,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/restaurant/:resId" element={<Restaurant />} />
         <Route path="/help" element={<Help />} />
+        <Route path="/offer" element={<Offer />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
       <Footer />
     </BrowserRouter>
