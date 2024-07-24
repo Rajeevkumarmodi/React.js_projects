@@ -15,14 +15,18 @@ function Header() {
   return (
     <div className="select-none w-full px-10 md:px-20 h-20 top-0 flex justify-between items-center sticky shadow-lg bg-white z-[1001]">
       <div className="ml-6  flex items-center">
-        <Link to="/">
+        <Link to="/" onClick={() => setIsOpenMenu(true)}>
           <img src={logo} alt="logo" />
         </Link>
       </div>
 
       <div className="flex gap-4 items-center md:hidden visible">
         <div>
-          <Link className="flex items-center hover:text-orange-500 gap-2 font-semibold">
+          <Link
+            onClick={() => setIsOpenMenu(true)}
+            to="/cart"
+            className="flex items-center hover:text-orange-500 gap-2 font-semibold"
+          >
             <FaCartPlus className="text-xl" />
             Cart
           </Link>
@@ -49,6 +53,7 @@ function Header() {
       >
         <li className="md:border-0 border-b-[1px] md:py-0 py-2 md:px-0 px-6">
           <Link
+            onClick={() => setIsOpenMenu(true)}
             className="flex items-center hover:text-orange-500 gap-2 font-semibold"
             to="/search"
           >
@@ -58,6 +63,7 @@ function Header() {
         </li>
         <li className="md:border-0 border-b-[1px] md:py-0 py-2 md:px-0 px-6">
           <Link
+            onClick={() => setIsOpenMenu(true)}
             to="/offer"
             className="flex items-center hover:text-orange-500 gap-2 font-semibold"
           >
@@ -67,6 +73,7 @@ function Header() {
         </li>
         <li className="md:border-0 border-b-[1px] md:py-0 py-2 md:px-0 px-6">
           <Link
+            onClick={() => setIsOpenMenu(true)}
             to="/help"
             className="flex items-center hover:text-orange-500 gap-2 font-semibold"
           >
@@ -74,13 +81,20 @@ function Header() {
           </Link>
         </li>
         <li className="md:border-0 border-b-[1px] md:py-0 py-2 md:px-0 px-6">
-          <Link className="flex items-center hover:text-orange-500 gap-2 font-semibold">
+          <Link
+            onClick={() => setIsOpenMenu(true)}
+            className="flex items-center hover:text-orange-500 gap-2 font-semibold"
+          >
             <CiUser className="text-xl" />
             Sign In
           </Link>
         </li>
         <li className="md:border-0 border-b-[1px] md:py-0 py-2 md:px-0 px-6">
-          <Link className="flex items-center hover:text-orange-500 gap-2 font-semibold">
+          <Link
+            onClick={() => setIsOpenMenu(true)}
+            to="/cart"
+            className="flex items-center hover:text-orange-500 gap-2 font-semibold"
+          >
             <FaCartPlus className="text-xl" />
             Cart
           </Link>

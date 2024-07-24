@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Help from "./pages/Help";
 import Offer from "./pages/Offer";
 import Search from "./pages/Search";
+import Cart from "./pages/Cart";
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +18,7 @@ function App() {
         <Route path="/help" element={<Help />} />
         <Route path="/offer" element={<Offer />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
       <Footer />
     </BrowserRouter>
