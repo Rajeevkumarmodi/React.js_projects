@@ -3,8 +3,6 @@ import MenuCard from "./MenuCard";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 
 const MenuItems = ({ title, ItemCards, categoryLength, nestingLevel }) => {
-  // console.log(ItemCards[1]?.card?.info)
-  // ItemCards.itemCards && console.log(ItemCards.length)
   const [isVisible, setIsVisible] = useState(true);
 
   const toggleIsVisble = () => {
@@ -29,23 +27,20 @@ const MenuItems = ({ title, ItemCards, categoryLength, nestingLevel }) => {
           </button>
           <div>
             {isVisible &&
-              ItemCards?.map(
-                (element, index) =>
-                  element.itemCards ? (
-                    <div key={index}>
-                      <MenuItems
-                        ItemCards={element.itemCards}
-                        key={index}
-                        categoryLength={element.itemCards.length}
-                        title={element.title}
-                        nestingLevel={1}
-                      />
-                    </div>
-                  ) : (
-                    // <h1>Menu Item</h1>
-                    <MenuCard key={index} ItemDetails={element?.card?.info} />
-                  )
-                // <h1>Menu Card</h1>
+              ItemCards?.map((element, index) =>
+                element.itemCards ? (
+                  <div key={index}>
+                    <MenuItems
+                      ItemCards={element.itemCards}
+                      key={index}
+                      categoryLength={element.itemCards.length}
+                      title={element.title}
+                      nestingLevel={1}
+                    />
+                  </div>
+                ) : (
+                  <MenuCard key={index} ItemDetails={element?.card?.info} />
+                )
               )}
           </div>
         </div>

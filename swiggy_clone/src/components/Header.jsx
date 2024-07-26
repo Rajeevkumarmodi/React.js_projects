@@ -9,9 +9,11 @@ import { IoClose } from "react-icons/io5";
 import { IoMdMenu } from "react-icons/io";
 
 import { Link, useNavigate } from "react-router-dom";
+import { contexProvider } from "../contex/SwiggyContex";
 
 function Header() {
   const [isOpenMenu, setIsOpenMenu] = useState(true);
+  const { cartData } = contexProvider();
   return (
     <div className="select-none w-full px-10 md:px-20 h-20 top-0 flex justify-between items-center sticky shadow-lg bg-white z-[1001]">
       <div className="ml-6  flex items-center">
@@ -93,10 +95,13 @@ function Header() {
           <Link
             onClick={() => setIsOpenMenu(true)}
             to="/cart"
-            className="flex items-center hover:text-orange-500 gap-2 font-semibold"
+            className="flex relative items-center hover:text-orange-500 gap-2 font-semibold"
           >
             <FaCartPlus className="text-xl" />
             Cart
+            <span className="absolute bg-red-600 rounded-full h-[20px] w-[20px] -pt-1 text-center text-sm text-white top-[-18px] right-7">
+              {cartData.length}
+            </span>
           </Link>
         </li>
       </ul>

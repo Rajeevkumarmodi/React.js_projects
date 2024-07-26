@@ -1,21 +1,17 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 import { IMG_CDN_URL } from "../constrants";
+import { contexProvider } from "../contex/SwiggyContex";
 
 const MenuCard = ({ ItemDetails }) => {
   const { imageId, name, defaultPrice, price, description, itemAttribute } =
     ItemDetails;
-  // console.log(name)
-  //adding for cart
-  //   const dispatch = useDispatch();
-  const addFoodItem = (item) => {
-    // dispatch(addItem(item));
-    console.log("item", item);
-  };
+
+  const { addToCart } = contexProvider();
 
   return (
     <div>
-      {/* <h1>{name}</h1> */}
       <div className="flex justify-between">
         <div>
           <div>
@@ -43,7 +39,15 @@ const MenuCard = ({ ItemDetails }) => {
             <button
               data-testid="addBtn"
               className=" text-[#60b246] w-full g-full cursor-pointer"
-              onClick={() => addFoodItem(ItemDetails)}
+              onClick={() => {
+                addToCart(
+                  name,
+                  ItemDetails.id,
+                  defaultPrice / 100 || price / 100,
+                  imageId
+                );
+                toast.success(name + "is added into cart");
+              }}
             >
               Add
             </button>

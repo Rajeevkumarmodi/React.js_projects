@@ -8,20 +8,25 @@ import Help from "./pages/Help";
 import Offer from "./pages/Offer";
 import Search from "./pages/Search";
 import Cart from "./pages/Cart";
+import AppContex from "./contex/SwiggyContex";
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/restaurant/:resId" element={<Restaurant />} />
-        <Route path="/help" element={<Help />} />
-        <Route path="/offer" element={<Offer />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <AppContex>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/restaurant/:resId" element={<Restaurant />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/offer" element={<Offer />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+      <Toaster />
+    </AppContex>
   );
 }
 
