@@ -4,18 +4,21 @@ import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import { contexProvider } from "../contex/SwiggyContex";
 import { IMG_CDN_URL } from "../constrants";
+import toast from "react-hot-toast";
 
 function Cart() {
   const [totalPrice, setTotalPrice] = useState(0);
-  const { cartData } = contexProvider();
+  const { cartData, increaseQty, decreaseQty, deleteProduct } =
+    contexProvider();
 
   useEffect(() => {
     let addedPrice = cartData.reduce(
-      (prevPrice, currentPrice) => prevPrice + currentPrice.price,
+      (prevPrice, currentPrice) =>
+        prevPrice + currentPrice.price * currentPrice.qty,
       0
     );
     setTotalPrice(addedPrice);
-  }, []);
+  }, [cartData]);
 
   return (
     <div>
@@ -49,7 +52,7 @@ function Cart() {
 
             <div className="space-y-8">
               {cartData?.map((data) => (
-                <div>
+                <div key={data.id}>
                   <div className="flex items-center justify-between md:gap-5 gap-3 my-2 w-full">
                     <div>
                       <img
@@ -61,15 +64,40 @@ function Cart() {
                     <div className="flex md:flex-row  flex-col items-center md:w-[80%] md:justify-between justify-center gap-2">
                       <p>{data.name}</p>
                       <div className="flex items-center md:gap-5 gap-3">
-                        <button className="bg-[#F7F9FB] px-5 py-1 space-x-3">
-                          <span className="text-xl font-bold">-</span>
+                        <div className="bg-[#F7F9FB] px-5 py-1 space-x-3">
+                          <button
+                            disabled={data.qty > 1 ? false : true}
+                            onClick={() => {
+                              decreaseQty(data.id);
+                              toast.success(data.name + "decrease quentity");
+                            }}
+                            className={`${
+                              data.qty > 1 ? "cursor-pointer" : "cursor-default"
+                            } text-2xl`}
+                          >
+                            -
+                          </button>
                           <span className="text-xl">{data.qty}</span>
-                          <span className="text-xl font-bold">+</span>
-                        </button>
+                          <button
+                            onClick={() => {
+                              increaseQty(data.id);
+                              toast.success(data.name + "increase quentity");
+                            }}
+                            className="text-xl font-bold"
+                          >
+                            +
+                          </button>
+                        </div>
                         <p className="font-bold text-xl">₹{data.price}</p>
                       </div>
                     </div>
-                    <MdDelete className="text-red-600  text-2xl cursor-pointer " />
+                    <MdDelete
+                      onClick={() => {
+                        deleteProduct(data.id);
+                        toast.success(data.name + "deleted");
+                      }}
+                      className="text-red-600  text-2xl cursor-pointer "
+                    />
                   </div>
                 </div>
               ))}

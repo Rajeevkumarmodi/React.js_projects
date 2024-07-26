@@ -31,6 +31,36 @@ function AppContex({ children }) {
     }
   }
 
+  function increaseQty(pId) {
+    const updatedData = cartData.map((item) => {
+      if (item.id === pId) {
+        return { ...item, qty: item.qty + 1 };
+      } else {
+        return item;
+      }
+    });
+    setCartData(updatedData);
+    saveData(updatedData);
+  }
+
+  function deleteProduct(pId) {
+    const updatedData = cartData.filter((data) => data.id != pId);
+    setCartData(updatedData);
+    saveData(updatedData);
+  }
+
+  function decreaseQty(pId) {
+    const updatedData = cartData.map((item) => {
+      if (item.id === pId) {
+        return { ...item, qty: item.qty - 1 };
+      } else {
+        return item;
+      }
+    });
+    setCartData(updatedData);
+    saveData(updatedData);
+  }
+
   useEffect(() => {
     let localStorageData =
       JSON.parse(window.localStorage.getItem("swiggy_cart_data")) || [];
@@ -38,7 +68,16 @@ function AppContex({ children }) {
   }, []);
 
   return (
-    <swiggyContex.Provider value={{ cartData, setCartData, addToCart }}>
+    <swiggyContex.Provider
+      value={{
+        cartData,
+        setCartData,
+        addToCart,
+        increaseQty,
+        decreaseQty,
+        deleteProduct,
+      }}
+    >
       {children}
     </swiggyContex.Provider>
   );

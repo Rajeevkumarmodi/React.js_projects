@@ -27,10 +27,13 @@ function Header() {
           <Link
             onClick={() => setIsOpenMenu(true)}
             to="/cart"
-            className="flex items-center hover:text-orange-500 gap-2 font-semibold"
+            className="flex relative items-center hover:text-orange-500 gap-2 font-semibold"
           >
             <FaCartPlus className="text-xl" />
             Cart
+            <span className="absolute bg-red-600 rounded-full h-[20px] w-[20px] -pt-1 text-center text-sm text-white top-[-18px] right-7">
+              {cartData.length}
+            </span>
           </Link>
         </div>
         {isOpenMenu ? (
